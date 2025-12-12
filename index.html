@@ -12,13 +12,22 @@
       --bg: #f7f9fc;
       --card: #ffffff;
       --muted: #6b7280;
+      --text: #111;
+    }
+
+    body.dark {
+      --bg: #111;
+      --card: #1e1e1e;
+      --muted: #aaa;
+      --text: #eee;
     }
 
     body {
       font-family: Inter, Roboto, Arial;
       margin: 0;
       background: var(--bg);
-      color: #111;
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
     }
 
     .container {
@@ -33,6 +42,16 @@
       padding: 20px;
       margin-bottom: 20px;
       box-shadow: 0 6px 18px rgba(12, 20, 40, 0.06);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.6s forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     header {
@@ -84,6 +103,12 @@
       background: linear-gradient(180deg, #fff, #f3f8ff);
       cursor: pointer;
       font-size: 14px;
+      transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 20px rgba(11, 114, 239, 0.2);
     }
 
     .primary {
@@ -99,8 +124,11 @@
       gap: 20px;
     }
 
-    /* Mobile Responsive */
-    @media (max-width: 768px) {
+    .main-grid > div {
+      min-width: 0;
+    }
+
+    @media (max-width: 850px) {
       .main-grid {
         grid-template-columns: 1fr;
       }
@@ -119,9 +147,9 @@
     .muted {
       color: var(--muted);
       word-wrap: break-word;
+      overflow-wrap: break-word;
     }
 
-    /* Modal */
     .modal {
       position: fixed;
       inset: 0;
@@ -130,6 +158,7 @@
       justify-content: center;
       background: rgba(4, 6, 10, 0.45);
       padding: 10px;
+      z-index: 9999;
     }
 
     .modal.show {
@@ -139,9 +168,19 @@
     .panel {
       width: 100%;
       max-width: 500px;
-      background: white;
+      background: var(--card);
       padding: 20px;
       border-radius: 12px;
+      opacity: 0;
+      transform: translateY(-50px);
+      animation: slideIn 0.3s forwards;
+    }
+
+    @keyframes slideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .upload-area {
@@ -150,6 +189,29 @@
       text-align: center;
       border-radius: 8px;
       cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .upload-area:hover {
+      border-color: var(--accent);
+    }
+
+    #dropArea img {
+      max-width: 100%;
+      margin-top: 10px;
+      border-radius: 8px;
+      animation: scaleIn 0.4s forwards;
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
 
     .chat-window {
@@ -160,6 +222,20 @@
       border-radius: 10px;
       background: #fafcff;
       font-size: 14px;
+    }
+
+    .chat-window p {
+      opacity: 0;
+      transform: translateX(-10px);
+      animation: messageIn 0.3s forwards;
+      animation-delay: 0.1s;
+    }
+
+    @keyframes messageIn {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
     pre {
@@ -187,6 +263,7 @@
           <div class="buttons">
             <button class="btn primary" id="openUpload">Analyze Image</button>
             <button class="btn" id="openChat">Chatbot</button>
+            <button class="btn" id="toggleDark">🌙 Dark Mode</button>
             <a class="btn" href="Syamprasad_cv.pdf" download>Download CV</a>
           </div>
         </div>
@@ -195,9 +272,7 @@
 
     <div class="main-grid">
 
-      <!-- LEFT -->
       <div>
-
         <div class="card">
           <h3>About</h3>
           <p>
@@ -225,7 +300,6 @@
 
         <div class="card">
           <h3>Skills</h3>
-
           <p><strong>Programming:</strong> Python, C, C++, JavaScript, PHP</p>
           <p><strong>ML / CV:</strong> YOLO, OpenCV, TensorFlow, PyTorch, face_recognition, FAISS</p>
           <p><strong>Databases:</strong> MySQL, ClickHouse, SQLite</p>
@@ -233,9 +307,7 @@
         </div>
       </div>
 
-      <!-- RIGHT -->
       <div>
-
         <div class="card">
           <h3>Contact</h3>
           <p class="muted">
@@ -253,7 +325,6 @@
           <h3>Languages</h3>
           <p class="muted">Malayalam • English • Tamil • Hindi</p>
         </div>
-
       </div>
     </div>
   </div>
@@ -297,47 +368,79 @@
     document.getElementById("openChat").onclick = () => chatModal.classList.add("show");
     document.getElementById("closeChat").onclick = () => chatModal.classList.remove("show");
 
+    const toggleDark = document.getElementById("toggleDark");
+    toggleDark.onclick = () => document.body.classList.toggle("dark");
+
     const API_BASE = "https://YOUR_BACKEND_URL_HERE";
 
-    // Upload
+    // Image Upload
     const fileInput = document.getElementById("fileInput");
-    document.getElementById("dropArea").onclick = () => fileInput.click();
+    const dropArea = document.getElementById("dropArea");
+    dropArea.onclick = () => fileInput.click();
+
+    dropArea.addEventListener("dragover", e => {
+      e.preventDefault();
+      dropArea.style.borderColor = "#0b72ef";
+    });
+    dropArea.addEventListener("dragleave", e => {
+      dropArea.style.borderColor = "#dbeafe";
+    });
+    dropArea.addEventListener("drop", e => {
+      e.preventDefault();
+      fileInput.files = e.dataTransfer.files;
+      showPreview();
+    });
+    fileInput.addEventListener("change", showPreview);
+
+    function showPreview() {
+      const file = fileInput.files[0];
+      if (!file) return;
+      const img = document.createElement("img");
+      img.src = URL.createObjectURL(file);
+      dropArea.innerHTML = "";
+      dropArea.appendChild(img);
+    }
 
     document.getElementById("sendImage").onclick = async () => {
       if (!fileInput.files[0]) return alert("Please select an image");
-
       const fd = new FormData();
       fd.append("file", fileInput.files[0]);
+      const resultBox = document.getElementById("result");
+      resultBox.textContent = "Processing...";
 
-      document.getElementById("result").textContent = "Processing...";
-
-      const res = await fetch(API_BASE + "/analyze-face", { method: "POST", body: fd });
-      const json = await res.json();
-
-      document.getElementById("result").textContent = JSON.stringify(json, null, 2);
+      try {
+        const res = await fetch(API_BASE + "/analyze-face", { method: "POST", body: fd });
+        if (!res.ok) throw new Error("Server error");
+        const json = await res.json();
+        resultBox.innerHTML = `<p><strong>Gender:</strong> ${json.gender}</p>
+                               <p><strong>Age:</strong> ${json.age}</p>
+                               <p><strong>Face Vector:</strong> [${json.face_vector.join(", ")}]</p>`;
+      } catch (err) {
+        resultBox.textContent = "Error: " + err.message;
+      }
     };
 
     // Chatbot
+    const chatWindow = document.getElementById("chatWindow");
     document.getElementById("sendChat").onclick = async () => {
       let msg = document.getElementById("chatInput").value.trim();
       if (!msg) return;
-
-      const box = document.getElementById("chatWindow");
-      box.innerHTML += `<p><strong>You:</strong> ${msg}</p>`;
+      chatWindow.innerHTML += `<p><strong>You:</strong> ${msg}</p>`;
       document.getElementById("chatInput").value = "";
+
+      chatWindow.innerHTML += `<p><em>Bot is typing...</em></p>`;
+      chatWindow.scrollTop = chatWindow.scrollHeight;
 
       const res = await fetch(API_BASE + "/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: msg })
       });
-
       const json = await res.json();
-      box.innerHTML += `<p><strong>Bot:</strong> ${json.reply}</p>`;
-      box.scrollTop = box.scrollHeight;
+      chatWindow.innerHTML += `<p><strong>Bot:</strong> ${json.reply}</p>`;
+      chatWindow.scrollTop = chatWindow.scrollHeight;
     };
   </script>
 
 </body>
-
 </html>
