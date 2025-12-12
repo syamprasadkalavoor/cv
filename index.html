@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,17 +8,17 @@
 
   <style>
     :root {
-      --accent:#0b72ef;
-      --bg:#f7f9fc;
-      --card:#ffffff;
-      --muted:#6b7280;
+      --accent: #0b72ef;
+      --bg: #f7f9fc;
+      --card: #ffffff;
+      --muted: #6b7280;
     }
 
     body {
       font-family: Inter, Roboto, Arial;
-      margin:0;
-      background:var(--bg);
-      color:#111;
+      margin: 0;
+      background: var(--bg);
+      color: #111;
     }
 
     .container {
@@ -31,137 +32,142 @@
       border-radius: 12px;
       padding: 20px;
       margin-bottom: 20px;
-      box-shadow: 0 6px 18px rgba(12,20,40,0.06);
+      box-shadow: 0 6px 18px rgba(12, 20, 40, 0.06);
     }
 
     header {
-      display:flex;
-      gap:15px;
-      align-items:center;
-      flex-wrap:wrap;
-      justify-content:center;
-      text-align:center;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+      text-align: center;
     }
 
     img.avatar {
-      width:110px;
-      height:110px;
-      border-radius:10px;
-      object-fit:cover;
+      width: 110px;
+      height: 110px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    @media (max-width: 480px) {
+      img.avatar {
+        width: 140px;
+        height: 140px;
+      }
     }
 
     h1 {
-      margin:5px 0 0 0;
-      font-size:26px;
+      margin: 5px 0 0 0;
+      font-size: 26px;
     }
 
     .subtitle {
-      color:var(--muted);
-      margin-top:6px;
+      color: var(--muted);
+      margin-top: 6px;
       font-size: 14px;
     }
 
     .buttons {
-      margin-top:16px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      justify-content:center;
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
     }
 
     .btn {
-      padding:10px 14px;
-      border-radius:10px;
-      border:1px solid rgba(11,114,239,.15);
-      background:linear-gradient(180deg,#fff,#f3f8ff);
-      cursor:pointer;
-      font-size:14px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(11, 114, 239, .15);
+      background: linear-gradient(180deg, #fff, #f3f8ff);
+      cursor: pointer;
+      font-size: 14px;
     }
 
     .primary {
-      background:var(--accent);
-      color:white;
-      border:none;
-      box-shadow: 0 6px 18px rgba(11,114,239,.12);
+      background: var(--accent);
+      color: white;
+      border: none;
+      box-shadow: 0 6px 18px rgba(11, 114, 239, .12);
     }
 
-    /* Layout */
     .main-grid {
-      display:grid;
-      grid-template-columns:1fr 300px;
-      gap:20px;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 20px;
     }
 
     /* Mobile Responsive */
     @media (max-width: 768px) {
       .main-grid {
-        grid-template-columns:1fr;
+        grid-template-columns: 1fr;
       }
-      header {
-        flex-direction:column;
-        text-align:center;
-      }
+
       .btn {
-        width:100%;
-        text-align:center;
+        width: 100%;
       }
     }
 
-    p, ul {
-      font-size:14px;
-      line-height:1.5;
+    p,
+    ul {
+      font-size: 14px;
+      line-height: 1.5;
     }
 
     .muted {
-      color:var(--muted);
+      color: var(--muted);
+      word-wrap: break-word;
     }
 
+    /* Modal */
     .modal {
-      position:fixed;
-      inset:0;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      background:rgba(4,6,10,0.45);
-      padding:10px;
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(4, 6, 10, 0.45);
+      padding: 10px;
     }
 
     .modal.show {
-      display:flex;
+      display: flex;
     }
 
     .panel {
-      width:100%;
-      max-width:500px;
-      background:white;
-      padding:20px;
-      border-radius:12px;
+      width: 100%;
+      max-width: 500px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
     }
 
     .upload-area {
-      border:2px dashed #dbeafe;
-      padding:20px;
-      text-align:center;
-      border-radius:8px;
-      cursor:pointer;
+      border: 2px dashed #dbeafe;
+      padding: 20px;
+      text-align: center;
+      border-radius: 8px;
+      cursor: pointer;
     }
 
     .chat-window {
-      height:300px;
-      overflow:auto;
-      border:1px solid #eee;
-      padding:10px;
-      border-radius:10px;
-      background:#fafcff;
-      font-size:14px;
+      height: 300px;
+      overflow: auto;
+      border: 1px solid #eee;
+      padding: 10px;
+      border-radius: 10px;
+      background: #fafcff;
+      font-size: 14px;
     }
 
     pre {
-      background:#f3f4f6;
-      padding:10px;
-      border-radius:10px;
-      font-size:14px;
-      white-space:pre-wrap;
+      background: #f3f4f6;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 14px;
+      white-space: pre-wrap;
     }
   </style>
 </head>
@@ -196,8 +202,8 @@
           <h3>About</h3>
           <p>
             Experienced Python Developer with 4+ years in Machine Learning, Computer Vision and
-            real-time Video Analytics. Specialized in building Face Recognition systems, ANPR,
-            fall detection, YOLO-based analytics, RTSP pipelines and AI-powered application backends.
+            real-time Video Analytics. Specialized in Face Recognition, ANPR, fall detection, YOLO models,
+            RTSP systems and ML-powered backend development.
           </p>
         </div>
 
@@ -205,15 +211,15 @@
           <h3>Projects</h3>
           <ul>
             <li><strong>Real-time Surveillance (Jetson AGX)</strong></li>
-            <li><strong>ANPR + OCR from RTSP</strong></li>
-            <li><strong>Heatmap + Timelapse Generator</strong></li>
+            <li><strong>ANPR + OCR (RTSP)</strong></li>
+            <li><strong>Heatmap + Timelapse Video Generator</strong></li>
             <li><strong>Real-time Face Recognition</strong></li>
             <li><strong>Face Search using FAISS</strong></li>
-            <li><strong>Fall Detection (Pose Estimation)</strong></li>
+            <li><strong>Fall Detection (YOLO Pose)</strong></li>
             <li><strong>PPE Detection</strong></li>
             <li>Sign Language Detection</li>
             <li>Plant Leaf Disease Detection</li>
-            <li>LSTM Gold Prediction</li>
+            <li>Gold Price Prediction (LSTM)</li>
           </ul>
         </div>
 
@@ -235,7 +241,11 @@
           <p class="muted">
             Email: syamprasadkalavoor@gmail.com <br>
             Phone: +91 9744454156 <br>
-            Location: Thrissur, India
+            Location: Thrissur, India <br>
+            LinkedIn:
+            <a href="https://www.linkedin.com/in/syamprasadku" target="_blank">
+              linkedin.com/in/syamprasadku
+            </a>
           </p>
         </div>
 
@@ -289,7 +299,7 @@
 
     const API_BASE = "https://YOUR_BACKEND_URL_HERE";
 
-    // Upload logic
+    // Upload
     const fileInput = document.getElementById("fileInput");
     document.getElementById("dropArea").onclick = () => fileInput.click();
 
@@ -307,7 +317,7 @@
       document.getElementById("result").textContent = JSON.stringify(json, null, 2);
     };
 
-    // Chat
+    // Chatbot
     document.getElementById("sendChat").onclick = async () => {
       let msg = document.getElementById("chatInput").value.trim();
       if (!msg) return;
@@ -318,8 +328,8 @@
 
       const res = await fetch(API_BASE + "/chat", {
         method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({message:msg})
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: msg })
       });
 
       const json = await res.json();
@@ -329,4 +339,5 @@
   </script>
 
 </body>
+
 </html>
