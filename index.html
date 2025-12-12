@@ -2,241 +2,329 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Syamprasad Kalavoor — CV</title>
-  <style>
-    :root { --accent:#0b72ef; --bg:#f7f9fc; --card:#ffffff; --muted:#6b7280; }
-    body { font-family: Inter, Roboto, Arial; margin:0; background:var(--bg); color:#111; }
-    .container { max-width:900px; margin:40px auto; padding:20px; }
-    .card { background:var(--card); border-radius:12px; padding:22px; box-shadow:0 6px 18px rgba(12,20,40,.06); }
-    header { display:flex; gap:18px; align-items:center; }
-    img.avatar { width:110px; height:110px; border-radius:10px; object-fit:cover; }
-    h1 { margin:0; font-size:26px; }
-    .subtitle { color:var(--muted); margin-top:6px; }
-    .buttons { margin-top:16px; display:flex; gap:10px; flex-wrap:wrap; }
-    .btn { padding:10px 14px; border-radius:10px; border:1px solid rgba(11,114,239,.15); background:linear-gradient(180deg,#fff,#f3f8ff); cursor:pointer; }
-    .primary { background:var(--accent); color:white; border:none; box-shadow:0 6px 18px rgba(11,114,239,.12);}
-    section { margin-top:18px; display:grid; grid-template-columns:1fr 320px; gap:18px; }
-    .card.small { padding:14px; }
-    .muted { color:var(--muted); font-size:14px; }
-    ul { margin:0; padding-left:20px; }
-    h3 { margin-top:0; }
-    pre { white-space:pre-wrap; word-break:break-word; background:#f3f4f6; padding:10px; border-radius:8px; font-size:13px; color:#111; }
 
-    .modal { position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(4,6,10,.45); }
-    .modal.show { display:flex; }
-    .modal .panel { width:640px; max-width:94%; background:white; padding:18px; border-radius:12px; }
-    .upload-area { border:2px dashed #dbeafe; padding:18px; text-align:center; border-radius:8px; cursor:pointer; }
-    input[type=file] { display:none; }
-    .chat-window { height:320px; overflow:auto; border:1px solid #e6eefc; padding:10px; border-radius:8px; background:#fbfdff; }
-    .chat-controls { display:flex; gap:8px; margin-top:8px; }
+  <style>
+    :root {
+      --accent:#0b72ef;
+      --bg:#f7f9fc;
+      --card:#ffffff;
+      --muted:#6b7280;
+    }
+
+    body {
+      font-family: Inter, Roboto, Arial;
+      margin:0;
+      background:var(--bg);
+      color:#111;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 15px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 18px rgba(12,20,40,0.06);
+    }
+
+    header {
+      display:flex;
+      gap:15px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:center;
+      text-align:center;
+    }
+
+    img.avatar {
+      width:110px;
+      height:110px;
+      border-radius:10px;
+      object-fit:cover;
+    }
+
+    h1 {
+      margin:5px 0 0 0;
+      font-size:26px;
+    }
+
+    .subtitle {
+      color:var(--muted);
+      margin-top:6px;
+      font-size: 14px;
+    }
+
+    .buttons {
+      margin-top:16px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:center;
+    }
+
+    .btn {
+      padding:10px 14px;
+      border-radius:10px;
+      border:1px solid rgba(11,114,239,.15);
+      background:linear-gradient(180deg,#fff,#f3f8ff);
+      cursor:pointer;
+      font-size:14px;
+    }
+
+    .primary {
+      background:var(--accent);
+      color:white;
+      border:none;
+      box-shadow: 0 6px 18px rgba(11,114,239,.12);
+    }
+
+    /* Layout */
+    .main-grid {
+      display:grid;
+      grid-template-columns:1fr 300px;
+      gap:20px;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .main-grid {
+        grid-template-columns:1fr;
+      }
+      header {
+        flex-direction:column;
+        text-align:center;
+      }
+      .btn {
+        width:100%;
+        text-align:center;
+      }
+    }
+
+    p, ul {
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .muted {
+      color:var(--muted);
+    }
+
+    .modal {
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:rgba(4,6,10,0.45);
+      padding:10px;
+    }
+
+    .modal.show {
+      display:flex;
+    }
+
+    .panel {
+      width:100%;
+      max-width:500px;
+      background:white;
+      padding:20px;
+      border-radius:12px;
+    }
+
+    .upload-area {
+      border:2px dashed #dbeafe;
+      padding:20px;
+      text-align:center;
+      border-radius:8px;
+      cursor:pointer;
+    }
+
+    .chat-window {
+      height:300px;
+      overflow:auto;
+      border:1px solid #eee;
+      padding:10px;
+      border-radius:10px;
+      background:#fafcff;
+      font-size:14px;
+    }
+
+    pre {
+      background:#f3f4f6;
+      padding:10px;
+      border-radius:10px;
+      font-size:14px;
+      white-space:pre-wrap;
+    }
   </style>
 </head>
 
 <body>
-  <div class="container card">
-    <header>
-      <img src="img.jpeg" alt="avatar" class="avatar" />
-      <div>
-        <h1>Syamprasad Kalavoor</h1>
-        <div class="subtitle">
-          AI / ML Engineer — Computer Vision • Video Analytics • Face Recognition • YOLO
-        </div>
 
-        <div class="buttons">
-          <button class="btn primary" id="openUpload">Analyze Image</button>
-          <button class="btn" id="openChat">Chatbot</button>
-          <a class="btn" href="Syamprasad_cv.pdf" download>Download CV</a>
-          <a class="btn" href="mailto:syamprasadkalavoor@gmail.com">Contact</a>
-        </div>
-      </div>
-    </header>
+  <div class="container">
+    <div class="card">
+      <header>
+        <img src="img.jpeg" class="avatar" />
+        <div>
+          <h1>Syamprasad Kalavoor</h1>
+          <div class="subtitle">
+            AI / ML Engineer — Computer Vision • Face Recognition • RTSP Video Analytics
+          </div>
 
-    <section>
+          <div class="buttons">
+            <button class="btn primary" id="openUpload">Analyze Image</button>
+            <button class="btn" id="openChat">Chatbot</button>
+            <a class="btn" href="Syamprasad_cv.pdf" download>Download CV</a>
+          </div>
+        </div>
+      </header>
+    </div>
+
+    <div class="main-grid">
+
       <!-- LEFT -->
-      <div class="left">
+      <div>
 
-        <!-- ABOUT -->
-        <div class="card small">
+        <div class="card">
           <h3>About</h3>
           <p>
-            Experienced Python Developer with 4+ years in Machine Learning, Computer Vision,
-            and real-time Video Analytics. Developed end-to-end AI solutions including face
-            recognition, fall detection, ANPR, real-time surveillance, and interactive intelligent systems.
-            Specialized in scalable backend systems, RTSP pipelines, edge AI on Jetson devices,
-            and ML-powered web applications.
+            Experienced Python Developer with 4+ years in Machine Learning, Computer Vision and
+            real-time Video Analytics. Specialized in building Face Recognition systems, ANPR,
+            fall detection, YOLO-based analytics, RTSP pipelines and AI-powered application backends.
           </p>
         </div>
 
-        <!-- PROJECTS -->
-        <div class="card small" style="margin-top:10px">
+        <div class="card">
           <h3>Projects</h3>
           <ul>
-            <li><strong>Real-Time Surveillance System (Jetson AGX)</strong> — YOLO detection, line crossing, heatmaps, TensorRT.</li>
-            <li><strong>ANPR + OCR</strong> — Real-time license plate recognition from CCTV streams.</li>
-            <li><strong>Heatmap System</strong> — People heatmaps, time-lapse generation.</li>
-            <li><strong>Face Recognition</strong> — Real-time embeddings, mask-safe detection.</li>
-            <li><strong>Face Search (FAISS)</strong> — High-speed vector search.</li>
-            <li><strong>Fall Detection</strong> — YOLOv8 Pose-based abnormal posture alerts.</li>
-            <li><strong>Fence Breach Detection</strong> — Real-time object + line logic.</li>
-            <li><strong>PPE Detection</strong> — Helmet/vest detection for safety.</li>
-            <li><strong>Sign Language Detection</strong></li>
-            <li><strong>Plant Leaf Disease Detection</strong></li>
-            <li><strong>COVID Prediction & Gold Price Prediction (LSTM)</strong></li>
-            <li><strong>Smoke Detection (Arduino + MQ Sensor)</strong></li>
+            <li><strong>Real-time Surveillance (Jetson AGX)</strong></li>
+            <li><strong>ANPR + OCR from RTSP</strong></li>
+            <li><strong>Heatmap + Timelapse Generator</strong></li>
+            <li><strong>Real-time Face Recognition</strong></li>
+            <li><strong>Face Search using FAISS</strong></li>
+            <li><strong>Fall Detection (Pose Estimation)</strong></li>
+            <li><strong>PPE Detection</strong></li>
+            <li>Sign Language Detection</li>
+            <li>Plant Leaf Disease Detection</li>
+            <li>LSTM Gold Prediction</li>
           </ul>
         </div>
 
-        <!-- SKILLS -->
-        <div class="card small" style="margin-top:10px">
+        <div class="card">
           <h3>Skills</h3>
 
-          <p><strong>Programming Languages:</strong><br>
-          Python, C, C++, JavaScript, Java, PHP, HTML/CSS</p>
-
-          <p><strong>Frameworks / Libraries:</strong><br>
-          Django, Flask, FastAPI, OpenCV, YOLO (v5–v10), TensorFlow, PyTorch, Keras,
-          face_recognition, FAISS, ONNX Runtime, NLTK, SpaCy, Scikit-learn</p>
-
-          <p><strong>AI/ML Expertise:</strong><br>
-          Face Recognition, Face Search, Object Detection, Pose Estimation, Heatmaps,
-          Segmentation, Embeddings, Transfer Learning, Real-time Inference</p>
-
-          <p><strong>Databases:</strong> MySQL, MS SQL, ClickHouse, SQLite</p>
-
-          <p><strong>Tools:</strong> Git, FFmpeg, REST APIs, Postman, Arduino, TensorRT, Jetson Nano/AGX</p>
+          <p><strong>Programming:</strong> Python, C, C++, JavaScript, PHP</p>
+          <p><strong>ML / CV:</strong> YOLO, OpenCV, TensorFlow, PyTorch, face_recognition, FAISS</p>
+          <p><strong>Databases:</strong> MySQL, ClickHouse, SQLite</p>
+          <p><strong>Tools:</strong> Git, FFmpeg, Jetson Nano/AGX, TensorRT</p>
         </div>
-
       </div>
 
       <!-- RIGHT -->
-      <aside class="right">
-        <div class="card small">
+      <div>
+
+        <div class="card">
           <h3>Contact</h3>
-          <div class="muted">
-            Email: syamprasadkalavoor@gmail.com<br>
-            Phone: +91 9744454156<br>
+          <p class="muted">
+            Email: syamprasadkalavoor@gmail.com <br>
+            Phone: +91 9744454156 <br>
             Location: Thrissur, India
-          </div>
+          </p>
         </div>
 
-        <div class="card small" style="margin-top:10px">
+        <div class="card">
           <h3>Languages</h3>
-          <div class="muted">
-            Malayalam • English • Tamil • Hindi
-          </div>
+          <p class="muted">Malayalam • English • Tamil • Hindi</p>
         </div>
 
-        <div class="card small" style="margin-top:10px">
-          <h3>Live Tools</h3>
-          <div class="muted">
-            Use Analyze Image or Chatbot above.
-          </div>
-        </div>
-      </aside>
-    </section>
-  </div>
-
-  <!-- Upload Modal -->
-  <div class="modal" id="uploadModal">
-    <div class="panel">
-      <h3>Upload an Image</h3>
-      <div class="upload-area" id="dropArea">
-        <p class="muted">Click or drop an image here</p>
-        <input type="file" id="fileInput" accept="image/*" />
       </div>
-
-      <div style="margin-top:12px;">
-        <button class="btn primary" id="sendImage">Analyze</button>
-        <button class="btn" id="closeUpload">Close</button>
-      </div>
-
-      <h4 style="margin-top:12px">Result</h4>
-      <pre id="result">No result yet.</pre>
     </div>
   </div>
 
-  <!-- Chat Modal -->
+  <!-- UPLOAD MODAL -->
+  <div class="modal" id="uploadModal">
+    <div class="panel">
+      <h3>Upload Image</h3>
+
+      <div class="upload-area" id="dropArea">
+        Tap to select / drop an image
+        <input type="file" id="fileInput" accept="image/*" hidden />
+      </div>
+
+      <button class="btn primary" id="sendImage" style="margin-top:10px;width:100%;">Analyze</button>
+      <button class="btn" id="closeUpload" style="margin-top:5px;width:100%;">Close</button>
+
+      <pre id="result">Waiting for input...</pre>
+    </div>
+  </div>
+
+  <!-- CHAT MODAL -->
   <div class="modal" id="chatModal">
     <div class="panel">
-      <h3>Chat with Assistant</h3>
+      <h3>Chat</h3>
       <div class="chat-window" id="chatWindow"></div>
-      <div class="chat-controls">
-        <input id="chatInput" placeholder="Type a message..." style="flex:1;padding:8px;border-radius:8px;border:1px solid #e6eefc"/>
-        <button class="btn primary" id="sendChat">Send</button>
-        <button class="btn" id="closeChat">Close</button>
-      </div>
+
+      <input id="chatInput" placeholder="Type message..." class="btn" style="width:100%;margin-top:10px;" />
+      <button class="btn primary" id="sendChat" style="width:100%;margin-top:10px;">Send</button>
+      <button class="btn" id="closeChat" style="width:100%;margin-top:5px;">Close</button>
     </div>
   </div>
 
   <script>
-    const uploadModal = document.getElementById('uploadModal');
-    const chatModal = document.getElementById('chatModal');
-    const openUpload = document.getElementById('openUpload');
-    const openChat = document.getElementById('openChat');
-    const closeUpload = document.getElementById('closeUpload');
-    const closeChat = document.getElementById('closeChat');
-    const dropArea = document.getElementById('dropArea');
-    const fileInput = document.getElementById('fileInput');
-    const sendImage = document.getElementById('sendImage');
-    const resultPre = document.getElementById('result');
-    const chatWindow = document.getElementById('chatWindow');
-    const chatInput = document.getElementById('chatInput');
-    const sendChat = document.getElementById('sendChat');
+    const uploadModal = document.getElementById("uploadModal");
+    const chatModal = document.getElementById("chatModal");
 
-    let selectedFile = null;
-    const API_BASE = 'https://YOUR_BACKEND_URL_HERE';
+    document.getElementById("openUpload").onclick = () => uploadModal.classList.add("show");
+    document.getElementById("closeUpload").onclick = () => uploadModal.classList.remove("show");
 
-    openUpload.onclick = () => uploadModal.classList.add('show');
-    closeUpload.onclick = () => uploadModal.classList.remove('show');
+    document.getElementById("openChat").onclick = () => chatModal.classList.add("show");
+    document.getElementById("closeChat").onclick = () => chatModal.classList.remove("show");
 
-    openChat.onclick = () => chatModal.classList.add('show');
-    closeChat.onclick = () => chatModal.classList.remove('show');
+    const API_BASE = "https://YOUR_BACKEND_URL_HERE";
 
-    dropArea.addEventListener('click', () => fileInput.click());
-    fileInput.addEventListener('change', (e) => { selectedFile = e.target.files[0]; });
+    // Upload logic
+    const fileInput = document.getElementById("fileInput");
+    document.getElementById("dropArea").onclick = () => fileInput.click();
 
-    dropArea.addEventListener('dragover', (e) => { e.preventDefault(); });
-    dropArea.addEventListener('drop', (e) => {
-      e.preventDefault();
-      selectedFile = e.dataTransfer.files[0];
-    });
-
-    sendImage.onclick = async () => {
-      if (!selectedFile) { alert('Select an image first.'); return; }
-      resultPre.textContent = 'Processing...';
+    document.getElementById("sendImage").onclick = async () => {
+      if (!fileInput.files[0]) return alert("Please select an image");
 
       const fd = new FormData();
-      fd.append('file', selectedFile);
+      fd.append("file", fileInput.files[0]);
 
-      try {
-        const resp = await fetch(API_BASE + '/analyze-face', { method:'POST', body: fd });
-        const data = await resp.json();
-        resultPre.textContent = JSON.stringify(data, null, 2);
-      } catch (err) {
-        resultPre.textContent = 'Error: ' + err.message;
-      }
+      document.getElementById("result").textContent = "Processing...";
+
+      const res = await fetch(API_BASE + "/analyze-face", { method: "POST", body: fd });
+      const json = await res.json();
+
+      document.getElementById("result").textContent = JSON.stringify(json, null, 2);
     };
 
-    sendChat.onclick = async () => {
-      const msg = chatInput.value.trim();
+    // Chat
+    document.getElementById("sendChat").onclick = async () => {
+      let msg = document.getElementById("chatInput").value.trim();
       if (!msg) return;
 
-      chatWindow.innerHTML += `<div><b>You:</b> ${msg}</div>`;
-      chatInput.value = '';
+      const box = document.getElementById("chatWindow");
+      box.innerHTML += `<p><strong>You:</strong> ${msg}</p>`;
+      document.getElementById("chatInput").value = "";
 
-      try {
-        const resp = await fetch(API_BASE + '/chat', {
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({message:msg})
-        });
-        const data = await resp.json();
-        chatWindow.innerHTML += `<div><b>Assistant:</b> ${data.reply}</div>`;
-        chatWindow.scrollTop = chatWindow.scrollHeight;
-      } catch (e) {
-        chatWindow.innerHTML += `<div style="color:red;"><b>Error:</b> ${e.message}</div>`;
-      }
+      const res = await fetch(API_BASE + "/chat", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({message:msg})
+      });
+
+      const json = await res.json();
+      box.innerHTML += `<p><strong>Bot:</strong> ${json.reply}</p>`;
+      box.scrollTop = box.scrollHeight;
     };
   </script>
 
