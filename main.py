@@ -25,7 +25,7 @@ tf.config.threading.set_inter_op_parallelism_threads(1)
 # -----------------------------
 MODEL_NAME = "Facenet"
 DETECTOR_BACKEND = "opencv"
-MODELS: Dict[str, Any] = {}  # Dictionary to hold all pre-loaded models
+MODELS: Dict[str, Any] = {}  # Dictionary to hold pre-loaded models
 
 # Using max_workers=1 to dedicate a single thread for DeepFace/TensorFlow operations
 executor = ThreadPoolExecutor(max_workers=1)
@@ -49,16 +49,18 @@ app.add_middleware(
 
 @app.on_event("startup")
 def load_models_at_startup():
-    """Builds and caches DeepFace models when the application starts."""
+    """Builds and caches the core Facenet model when the application starts."""
     global MODELS
     print("Attempting to load DeepFace models...")
 
     try:
-        # Build all models. This forces them to download and cache once.
+        # FIX: ONLY build the main embedding model (Facenet).
+        # DeepFace.analyze() will handle the loading/caching of Age/Gender/Emotion models.
         MODELS["facenet"] = DeepFace.build_model(MODEL_NAME)
-        MODELS["age"] = DeepFace.build_model("Age")
-        MODELS["gender"] = DeepFace.build_model("Gender")
-        MODELS["emotion"] = DeepFace.build_model("Emotion")
+
+        # Optional: Forcing the cache of attribute models (without storing them globally)
+        # by calling analyze on a dummy image can ensure faster first-request speed,
+        # but is less critical than fixing the ValueError.
 
         print("DeepFace models loaded successfully.")
     except Exception as e:
@@ -102,7 +104,7 @@ async def analyze_face_thread(image_array: np.ndarray, models_dict: Dict[str, An
     """Executes DeepFace calls in a separate thread to prevent blocking the event loop."""
     loop = asyncio.get_event_loop()
 
-    # DeepFace.analyze uses the models cached by the initial build_model calls.
+    # DeepFace.analyze uses the models cached by the initial build_model call implicitly.
     analysis = await loop.run_in_executor(
         executor,
         lambda: DeepFace.analyze(
@@ -113,7 +115,7 @@ async def analyze_face_thread(image_array: np.ndarray, models_dict: Dict[str, An
         )[0]
     )
 
-    # DeepFace.represent is explicitly passed the pre-loaded Facenet model for clarity.
+    # DeepFace.represent is explicitly passed the pre-loaded Facenet model.
     embedding = await loop.run_in_executor(
         executor,
         lambda: DeepFace.represent(
