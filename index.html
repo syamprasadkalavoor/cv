@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Syamprasad Kalavoor — CV</title>
+
+  <style>
+    :root {
+      --accent: #0b72ef;
+      --bg: #f7f9fc;
+      --card: #ffffff;
+      --muted: #6b7280;
+      --text: #111;
+    }
+
+    body.dark {
+      --bg: #111;
+      --card: #1e1e1e;
+      --muted: #aaa;
+      --text: #eee;
+    }
+
+    body {
+      font-family: Inter, Roboto, Arial;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 15px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 18px rgba(12, 20, 40, 0.06);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.6s forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    header {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+      text-align: center;
+    }
+
+    img.avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    @media (max-width: 480px) {
+      img.avatar {
+        width: 140px;
+        height: 140px;
+      }
+    }
+
+    h1 {
+      margin: 5px 0 0 0;
+      font-size: 26px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-top: 6px;
+      font-size: 14px;
+    }
+
+    .buttons {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(11, 114, 239, .15);
+      background: linear-gradient(180deg, #fff, #f3f8ff);
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 20px rgba(11, 114, 239, 0.2);
+    }
+
+    .primary {
+      background: var(--accent);
+      color: white;
+      border: none;
+      box-shadow: 0 6px 18px rgba(11, 114, 239, .12);
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 20px;
+    }
+
+    .main-grid > div {
+      min-width: 0;
+    }
+
+    @media (max-width: 850px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+
+    p,
+    ul {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .muted {
+      color: var(--muted);
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(4, 6, 10, 0.45);
+      padding: 10px;
+      z-index: 9999;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .panel {
+      width: 100%;
+      max-width: 500px;
+      background: var(--card);
+      padding: 20px;
+      border-radius: 12px;
+      opacity: 0;
+      transform: translateY(-50px);
+      animation: slideIn 0.3s forwards;
+    }
+
+    @keyframes slideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .upload-area {
+      border: 2px dashed #dbeafe;
+      padding: 20px;
+      text-align: center;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .upload-area:hover {
+      border-color: var(--accent);
+    }
+
+    #dropArea img {
+      max-width: 100%;
+      margin-top: 10px;
+      border-radius: 8px;
+      animation: scaleIn 0.4s forwards;
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .chat-window {
+      height: 300px;
+      overflow: auto;
+      border: 1px solid #eee;
+      padding: 10px;
+      border-radius: 10px;
+      background: #fafcff;
+      font-size: 14px;
+    }
+
+    .chat-window p {
+      opacity: 0;
+      transform: translateX(-10px);
+      animation: messageIn 0.3s forwards;
+      animation-delay: 0.1s;
+    }
+
+    @keyframes messageIn {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    pre {
+      background: #f3f4f6;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="card">
+      <header>
+        <img src="img.jpeg" class="avatar" />
+        <div>
+          <h1>Syamprasad Kalavoor</h1>
+          <div class="subtitle">
+            AI / ML Engineer — Computer Vision • Face Recognition • RTSP Video Analytics
+          </div>
+
+          <div class="buttons">
+            <button class="btn primary" id="openUpload">Analyze Image</button>
+            <button class="btn" id="openChat">Chatbot</button>
+            <button class="btn" id="toggleDark">🌙 Dark Mode</button>
+            <a class="btn" href="Syamprasad_cv.pdf" download>Download CV</a>
+          </div>
+        </div>
+      </header>
+    </div>
+
+    <div class="main-grid">
+
+      <div>
+        <div class="card">
+          <h3>About</h3>
+          <p>
+            Experienced Python Developer with 4+ years in Machine Learning, Computer Vision and
+            real-time Video Analytics. Specialized in Face Recognition, ANPR, fall detection, YOLO models,
+            RTSP systems and ML-powered backend development.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Projects</h3>
+          <ul>
+            <li><strong>Real-time Surveillance (Jetson AGX)</strong></li>
+            <li><strong>ANPR + OCR (RTSP)</strong></li>
+            <li><strong>Heatmap + Timelapse Video Generator</strong></li>
+            <li><strong>Real-time Face Recognition</strong></li>
+            <li><strong>Face Search using FAISS</strong></li>
+            <li><strong>Fall Detection (YOLO Pose)</strong></li>
+            <li><strong>PPE Detection</strong></li>
+            <li>Sign Language Detection</li>
+            <li>Plant Leaf Disease Detection</li>
+            <li>Gold Price Prediction (LSTM)</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Skills</h3>
+          <p><strong>Programming:</strong> Python, C, C++, JavaScript, PHP</p>
+          <p><strong>ML / CV:</strong> YOLO, OpenCV, TensorFlow, PyTorch, face_recognition, FAISS</p>
+          <p><strong>Databases:</strong> MySQL, ClickHouse, SQLite</p>
+          <p><strong>Tools:</strong> Git, FFmpeg, Jetson Nano/AGX, TensorRT</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <h3>Contact</h3>
+          <p class="muted">
+            Email: syamprasadkalavoor@gmail.com <br>
+            Phone: +91 9744454156 <br>
+            Location: Thrissur, India <br>
+            LinkedIn:
+            <a href="https://www.linkedin.com/in/syamprasadku" target="_blank">
+              linkedin.com/in/syamprasadku
+            </a>
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Languages</h3>
+          <p class="muted">Malayalam • English • Tamil • Hindi</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UPLOAD MODAL -->
+  <div class="modal" id="uploadModal">
+    <div class="panel">
+      <h3>Upload Image</h3>
+
+      <div class="upload-area" id="dropArea">
+        Tap to select / drop an image
+        <input type="file" id="fileInput" accept="image/*" hidden />
+      </div>
+
+      <button class="btn primary" id="sendImage" style="margin-top:10px;width:100%;">Analyze</button>
+      <button class="btn" id="closeUpload" style="margin-top:5px;width:100%;">Close</button>
+
+      <pre id="result">Waiting for input...</pre>
+    </div>
+  </div>
+
+  <!-- CHAT MODAL -->
+  <div class="modal" id="chatModal">
+    <div class="panel">
+      <h3>Chat</h3>
+      <div class="chat-window" id="chatWindow"></div>
+
+      <input id="chatInput" placeholder="Type message..." class="btn" style="width:100%;margin-top:10px;" />
+      <button class="btn primary" id="sendChat" style="width:100%;margin-top:10px;">Send</button>
+      <button class="btn" id="closeChat" style="width:100%;margin-top:5px;">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const uploadModal = document.getElementById("uploadModal");
+    const chatModal = document.getElementById("chatModal");
+
+    document.getElementById("openUpload").onclick = () => uploadModal.classList.add("show");
+    document.getElementById("closeUpload").onclick = () => uploadModal.classList.remove("show");
+
+    document.getElementById("openChat").onclick = () => chatModal.classList.add("show");
+    document.getElementById("closeChat").onclick = () => chatModal.classList.remove("show");
+
+    const toggleDark = document.getElementById("toggleDark");
+    toggleDark.onclick = () => document.body.classList.toggle("dark");
+
+    const API_BASE = "https://YOUR_BACKEND_URL_HERE";
+
+    // Image Upload
+    const fileInput = document.getElementById("fileInput");
+    const dropArea = document.getElementById("dropArea");
+    dropArea.onclick = () => fileInput.click();
+
+    dropArea.addEventListener("dragover", e => {
+      e.preventDefault();
+      dropArea.style.borderColor = "#0b72ef";
+    });
+    dropArea.addEventListener("dragleave", e => {
+      dropArea.style.borderColor = "#dbeafe";
+    });
+    dropArea.addEventListener("drop", e => {
+      e.preventDefault();
+      fileInput.files = e.dataTransfer.files;
+      showPreview();
+    });
+    fileInput.addEventListener("change", showPreview);
+
+    function showPreview() {
+      const file = fileInput.files[0];
+      if (!file) return;
+      const img = document.createElement("img");
+      img.src = URL.createObjectURL(file);
+      dropArea.innerHTML = "";
+      dropArea.appendChild(img);
+    }
+
+    document.getElementById("sendImage").onclick = async () => {
+      if (!fileInput.files[0]) return alert("Please select an image");
+      const fd = new FormData();
+      fd.append("file", fileInput.files[0]);
+      const resultBox = document.getElementById("result");
+      resultBox.textContent = "Processing...";
+
+      try {
+        const res = await fetch(API_BASE + "/analyze-face", { method: "POST", body: fd });
+        if (!res.ok) throw new Error("Server error");
+        const json = await res.json();
+        resultBox.innerHTML = `<p><strong>Gender:</strong> ${json.gender}</p>
+                               <p><strong>Age:</strong> ${json.age}</p>
+                               <p><strong>Face Vector:</strong> [${json.face_vector.join(", ")}]</p>`;
+      } catch (err) {
+        resultBox.textContent = "Error: " + err.message;
+      }
+    };
+
+    // Chatbot
+    const chatWindow = document.getElementById("chatWindow");
+    document.getElementById("sendChat").onclick = async () => {
+      let msg = document.getElementById("chatInput").value.trim();
+      if (!msg) return;
+      chatWindow.innerHTML += `<p><strong>You:</strong> ${msg}</p>`;
+      document.getElementById("chatInput").value = "";
+
+      chatWindow.innerHTML += `<p><em>Bot is typing...</em></p>`;
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+
+      const res = await fetch(API_BASE + "/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: msg })
+      });
+      const json = await res.json();
+      chatWindow.innerHTML += `<p><strong>Bot:</strong> ${json.reply}</p>`;
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    };
+  </script>
+
+</body>
+</html>
