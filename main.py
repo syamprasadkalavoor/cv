@@ -3,6 +3,8 @@ os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
 
 import tensorflow as tf
 tf.get_logger().setLevel("ERROR")
+tf.config.threading.set_intra_op_parallelism_threads(1)
+tf.config.threading.set_inter_op_parallelism_threads(1)
 
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
@@ -20,6 +22,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Load lightweight model once at startup
+model_name = "Facenet"
+detector_backend = "opencv"
+model = DeepFace.build_model(model_name)
 
 def to_python(obj):
     if isinstance(obj, np.integer):
@@ -48,7 +55,9 @@ async def analyze_face(file: UploadFile = File(...)):
         analysis = DeepFace.analyze(
             img_path="temp.jpg",
             actions=["age", "gender", "emotion"],
-            enforce_detection=True
+            enforce_detection=False,
+            detector_backend=detector_backend,
+            models=model
         )[0]
 
         analysis = to_python(analysis)
