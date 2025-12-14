@@ -23,11 +23,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load lightweight model once at startup
-model_name = "Facenet"
-detector_backend = "opencv"
-model = DeepFace.build_model(model_name)
-
 def to_python(obj):
     if isinstance(obj, np.integer):
         return int(obj)
@@ -56,8 +51,7 @@ async def analyze_face(file: UploadFile = File(...)):
             img_path="temp.jpg",
             actions=["age", "gender", "emotion"],
             enforce_detection=False,
-            detector_backend=detector_backend,
-            models=model
+            detector_backend="opencv"  # lightweight CPU detector
         )[0]
 
         analysis = to_python(analysis)
