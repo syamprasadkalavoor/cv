@@ -2,16 +2,16 @@ import os
 os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
 
 import tensorflow as tf
-tf.get_logger().setLevel('ERROR')
+tf.get_logger().setLevel("ERROR")
 
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from deepface import DeepFace
-import io
 from PIL import Image
 import numpy as np
+import io
 
-app = FastAPI()
+app = FastAPI(title="Face Analysis API")
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,51 +22,41 @@ app.add_middleware(
 )
 
 def to_python(obj):
-    """Recursively converts numpy types → Python types."""
-    if isinstance(obj, (np.integer,)):
+    if isinstance(obj, np.integer):
         return int(obj)
-    if isinstance(obj, (np.floating,)):
+    if isinstance(obj, np.floating):
         return float(obj)
-    if isinstance(obj, (np.ndarray, list, tuple)):
-        return [to_python(x) for x in obj]
+    if isinstance(obj, np.ndarray):
+        return obj.tolist()
     if isinstance(obj, dict):
         return {k: to_python(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [to_python(v) for v in obj]
     return obj
 
 @app.get("/")
-async def root():
-    return {"message": "Face API running"}
+def root():
+    return {"status": "Face API running"}
 
 @app.post("/analyze-face")
 async def analyze_face(file: UploadFile = File(...)):
     try:
-        contents = await file.read()
-        img = Image.open(io.BytesIO(contents)).convert("RGB")
-        img.save("temp.jpg")
+        image_bytes = await file.read()
+        image = Image.open(io.BytesIO(image_bytes)).convert("RGB")
+        image.save("temp.jpg")
 
-        # -------- DeepFace ANALYZE --------
-        analysis_raw = DeepFace.analyze(
+        analysis = DeepFace.analyze(
             img_path="temp.jpg",
             actions=["age", "gender", "emotion"],
             enforce_detection=True
         )[0]
 
-        # Convert analysis to Python-safe JSON
-        analysis = to_python(analysis_raw)
-
-        # -------- DeepFace EMBEDDING --------
-        emb_raw = DeepFace.represent(
-            img_path="temp.jpg",
-            model_name="Facenet"
-        )[0]["embedding"]
-
-        embedding = to_python(emb_raw)
+        analysis = to_python(analysis)
 
         return {
             "age": analysis["age"],
             "gender": analysis["gender"],
-            "emotion": analysis["dominant_emotion"],
-
+            "emotion": analysis["dominant_emotion"]
         }
 
     except Exception as e:

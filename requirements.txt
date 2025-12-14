@@ -1,9 +1,12 @@
 fastapi
 uvicorn[standard]
-
-deepface
-tensorflow
+python-multipart
 
 numpy
 pillow
 opencv-python-headless
+
+tensorflow==2.15.0
+keras==2.15.0
+
+deepface==0.0.93
