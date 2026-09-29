@@ -82,6 +82,46 @@
       overflow-x: hidden;
     }
 
+    body.is-loading .page { opacity: 0; }
+    .page { transition: opacity .55s ease; }
+    .preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: grid;
+      place-content: center;
+      justify-items: center;
+      gap: 0;
+      color: var(--text-primary);
+      background: var(--bg-base);
+      transition: background-color .5s ease;
+    }
+    .preloader.is-transitioning { background: transparent; pointer-events: none; }
+    .preloader-name {
+      white-space: nowrap;
+      font-size: clamp(30px, 6vw, 52px);
+      font-weight: 900;
+      letter-spacing: -.055em;
+      color: transparent;
+      background: linear-gradient(90deg, #ff3f6c 0 50%, var(--text-primary) 50% 100%);
+      background-size: 200% 100%;
+      background-position: 100% 0;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transform-origin: center center;
+      animation: nameColorFill 1s cubic-bezier(.22,.61,.36,1) forwards;
+    }
+    .preloader-name.is-hidden { opacity: 0; transition: opacity .2s ease; }
+    .hero-name { transition: opacity .2s ease; }
+    .hero-name.intro-hidden { opacity: 0; }
+    .hero-name span { color: #ff3f6c; }
+    @keyframes nameColorFill { to { background-position: 0 0; } }
+    @media (prefers-reduced-motion: reduce) {
+      .page, .preloader, .preloader-name, .hero-name { transition-duration: .01ms; }
+      .preloader-name { animation-duration: .2s; }
+    }
+
     /* ═══ AMBIENT BG ═══ */
     .bg-ambient {
       position: fixed;
@@ -935,7 +975,10 @@
   </style>
 </head>
 
-<body>
+<body class="is-loading">
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader-name" id="preloaderName">Syamprasad Kalavoor</div>
+  </div>
   <!-- Ambient background -->
   <div class="bg-ambient">
     <div class="orb"></div>
@@ -968,7 +1011,7 @@
       <div class="avatar-ring">
         <img src="img.jpeg" alt="Syamprasad Kalavoor" class="avatar" />
       </div>
-      <h1 class="hero-name">Syamprasad Kalavoor</h1>
+      <h1 class="hero-name" id="heroName">Syamprasad <span>Kalavoor</span></h1>
       <p class="hero-role"><strong>Software Developer</strong> · AI/ML Engineer</p>
       <p class="hero-tagline">
         4+ years building production-grade solutions in Machine Learning, Computer Vision, and Real-time Video Analytics.
@@ -1225,6 +1268,33 @@
        SCRIPTS
   ═══════════════════════════════════════════ -->
   <script>
+    /* ── BRANDED PAGE INTRO ── */
+    const preloader = document.getElementById('preloader');
+    const introName = document.getElementById('preloaderName');
+    const heroName = document.getElementById('heroName');
+    const reduceIntroMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceIntroMotion) introName.style.animationDuration = '.2s';
+    heroName.classList.add('intro-hidden');
+    introName.addEventListener('animationend', () => {
+      document.body.classList.remove('is-loading');
+      preloader.classList.add('is-transitioning');
+      requestAnimationFrame(() => {
+        const from = introName.getBoundingClientRect();
+        const to = heroName.getBoundingClientRect();
+        const dx = to.left + to.width / 2 - (from.left + from.width / 2);
+        const dy = to.top + to.height / 2 - (from.top + from.height / 2);
+        const sx = to.width / from.width;
+        const sy = to.height / from.height;
+        introName.style.transition = `transform ${reduceIntroMotion ? '.01ms' : '.78s'} cubic-bezier(.2,.75,.25,1)`;
+        introName.style.transform = `translate3d(${dx}px, ${dy}px, 0) scale(${sx}, ${sy})`;
+        window.setTimeout(() => {
+          heroName.classList.remove('intro-hidden');
+          introName.classList.add('is-hidden');
+          window.setTimeout(() => preloader.remove(), reduceIntroMotion ? 20 : 240);
+        }, reduceIntroMotion ? 20 : 800);
+      });
+    }, { once: true });
+
     /* ── THEME TOGGLE ── */
     const themeBtn = document.getElementById('toggleTheme');
     let light = false;
