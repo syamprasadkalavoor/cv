@@ -473,15 +473,17 @@
     ═══════════════════════════════════════════ */
     .grid {
       display: grid;
-      grid-template-columns: 1fr 360px;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 320px);
       gap: 24px;
       align-items: start;
     }
 
     .col { display: flex; flex-direction: column; gap: 24px; }
+    .col-sidebar { position: sticky; top: 24px; align-self: start; }
 
-    @media (max-width: 920px) {
+    @media (max-width: 860px) {
       .grid { grid-template-columns: 1fr; }
+      .col-sidebar { position: static; }
     }
 
     @media (max-width: 500px) {
@@ -695,6 +697,8 @@
     .featured-project .project-emoji { color: #ff3f6c; background: rgba(255,63,108,.14); }
     .featured-project .project-name { font-size: 15px; }
     .featured-project .project-desc { color: var(--text-secondary); font-size: 12px; max-width: 740px; }
+    .project-group-title { grid-column: 1 / -1; margin: 14px 0 0; padding-bottom: 9px; border-bottom: 1px solid var(--border); color: var(--text-primary); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .project-group-title:first-child { margin-top: 0; }
     .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
     .project-tags span { border: 1px solid var(--border-hover); border-radius: 999px; padding: 4px 8px; color: var(--text-secondary); font: 10px 'JetBrains Mono', monospace; }
     .timeline-details { margin: 9px 0 0; padding-left: 17px; color: var(--text-secondary); font-size: 12px; }
@@ -731,12 +735,14 @@
       font-weight: 600;
       color: var(--text-primary);
       line-height: 1.3;
+      margin: 0;
     }
 
     .project-desc {
       font-size: 11.5px;
       color: var(--text-muted);
       line-height: 1.5;
+      margin: 0;
     }
 
     /* ═══════════════════════════════════════════
@@ -1054,158 +1060,8 @@
         <!-- PROJECTS -->
         <div class="card reveal" id="projects">
           <div class="section-tag"><span class="tag-dot"></span> Projects</div>
-          <div class="projects-grid">
-            <div class="project-card featured-project">
-              <div class="project-header">
-                <div class="project-emoji">✦</div>
-                <div class="project-name">AI Job Agent – Intelligent Resume &amp; Job Matching System</div>
-              </div>
-              <div class="project-desc">A Python-based AI system that analyzes resumes against job descriptions, calculates match and ATS scores, surfaces skill gaps and ATS keywords, then generates tailored CV content with locally hosted Qwen3:8B via Ollama. Generated content is validated against the source resume before DOCX and PDF output.</div>
-              <div class="project-tags"><span>Python</span><span>Qwen3:8B</span><span>Ollama</span><span>ATS Matching</span><span>DOCX / PDF</span></div>
-            </div>
-            <div class="project-card">
-              <div class="project-header">
-                <div class="project-emoji">🛡️</div>
-                <div class="project-name">Smart Surveillance on Jetson AGX</div>
-              </div>
-              <div class="project-desc">Edge AI real-time people/vehicle detection, line crossing, heatmaps, TensorRT optimized</div>
-            </div>
-            <div class="project-card">
-              <div class="project-header">
-                <div class="project-emoji">🚗</div>
-                <div class="project-name">ANPR + OCR (RTSP)</div>
-              </div>
-              <div class="project-desc">Automatic number plate recognition from live RTSP streams with deep learning OCR</div>
-            </div>
-            <div class="project-card">
-              <div class="project-header">
-                <div class="project-emoji">🔥</div>
-                <div class="project-name">Person Heatmapping</div>
-              </div>
-              <div class="project-desc">Real-time visualization of human movement patterns & high-activity zones</div>
-            </div>
-            <div class="project-card">
-              <div class="project-header">
-                <div class="project-emoji">👤</div>
-                <div class="project-name">Real-Time Face Recognition</div>
-              </div>
-              <div class="project-desc">Deep learning face ID with embeddings for biometric security & access control</div>
-            </div>
-            <div class="project-card">
-              <div class="project-header">
-                <div class="project-emoji">🔍</div>
-                <div class="project-name">Face Search (FAISS)</div>
-              </div>
-              <div class="project-desc">High-speed top-k nearest neighbor face matching at scale</div>
-            </div>
-            <div class="project-card">
-              <div class="project-header">
-                <div class="project-emoji">🤸</div>
-                <div class="project-name">Fall Detection (YOLOv8 Pose)</div>
-              </div>
-              <div class="project-desc">Pose estimation from RTSP streams for real-time safety alerts</div>
-            </div>
-            <div class="project-card">
-              <div class="project-header">
-                <div class="project-emoji">🦺</div>
-                <div class="project-name">PPE Safety Detection</div>
-              </div>
-              <div class="project-desc">Helmet, vest compliance monitoring via YOLO from RTSP video</div>
-            </div>
-            <div class="project-card">
-              <div class="project-header">
-                <div class="project-emoji">💅</div>
-                <div class="project-name">Nail Segmentation (YOLO)</div>
-              </div>
-              <div class="project-desc">Beauty tech virtual try-on using YOLO-based nail segmentation</div>
-            </div>
-            <div class="project-card">
-              <div class="project-header">
-                <div class="project-emoji">😊</div>
-                <div class="project-name">Emotion Detection</div>
-              </div>
-              <div class="project-desc">Facial expression analysis from images & videos for emotional state</div>
-            </div>
-            <div class="project-card">
-              <div class="project-header">
-                <div class="project-emoji">🚶</div>
-                <div class="project-name">InOut Person Counter</div>
-              </div>
-              <div class="project-desc">YOLO detection with line-crossing logic for room occupancy</div>
-            </div>
-            <div class="project-card">
-              <div class="project-header">
-                <div class="project-emoji">🚧</div>
-                <div class="project-name">Fence Crossing Detection</div>
-              </div>
-              <div class="project-desc">Perimeter breach alerts using RTSP stream analysis</div>
-            </div>
-            <div class="project-card">
-              <div class="project-header">
-                <div class="project-emoji">⚠️</div>
-                <div class="project-name">Occupancy Limit Alert</div>
-              </div>
-              <div class="project-desc">Real-time alert when room exceeds defined person limit</div>
-            </div>
-            <div class="project-card">
-              <div class="project-header">
-                <div class="project-emoji">🤟</div>
-                <div class="project-name">Sign Language Detection</div>
-              </div>
-              <div class="project-desc">Gesture recognition for accessibility & hearing impaired</div>
-            </div>
-            <div class="project-card">
-              <div class="project-header">
-                <div class="project-emoji">🌿</div>
-                <div class="project-name">Plant Disease Detection</div>
-              </div>
-              <div class="project-desc">CNN-based leaf disease classification from images</div>
-            </div>
-            <div class="project-card">
-              <div class="project-header">
-                <div class="project-emoji">🤖</div>
-                <div class="project-name">AI Chatbot (NLP)</div>
-              </div>
-              <div class="project-desc">NLP-powered customer Q&A with database integration</div>
-            </div>
-            <div class="project-card">
-              <div class="project-header">
-                <div class="project-emoji">🚑</div>
-                <div class="project-name">Ambulance Detection</div>
-              </div>
-              <div class="project-desc">Computer vision system to detect ambulances from static cameras</div>
-            </div>
-            <div class="project-card">
-              <div class="project-header">
-                <div class="project-emoji">📈</div>
-                <div class="project-name">Gold Price Prediction</div>
-              </div>
-              <div class="project-desc">LSTM neural network for time-series price forecasting</div>
-            </div>
-            <div class="project-card">
-              <div class="project-header">
-                <div class="project-emoji">🦠</div>
-                <div class="project-name">COVID-19 Prediction</div>
-              </div>
-              <div class="project-desc">ML models for diagnosis prediction & outbreak forecasting</div>
-            </div>
-            <div class="project-card">
-              <div class="project-header">
-                <div class="project-emoji">📦</div>
-                <div class="project-name">Pick Management Software</div>
-              </div>
-              <div class="project-desc">Warehouse operations optimizer for accurate order fulfillment</div>
-            </div>
-            <div class="project-card">
-              <div class="project-header">
-                <div class="project-emoji">🔧</div>
-                <div class="project-name">Smoke Detection (Arduino)</div>
-              </div>
-              <div class="project-desc">Real-time smoke/gas detection using Arduino & MQ sensors</div>
-            </div>
-          </div>
+          <div class="projects-grid" id="projectsGrid"></div>
         </div>
-
         <!-- SKILLS -->
         <div class="card reveal">
           <div class="section-tag"><span class="tag-dot"></span> Technical Skills</div>
@@ -1213,95 +1069,76 @@
           <div class="skill-group">
             <div class="skill-group-label">Programming Languages</div>
             <div class="tags">
-              <span class="tag tag-blue">Python</span>
-              <span class="tag tag-blue">C</span>
-              <span class="tag tag-blue">C++</span>
-              <span class="tag tag-blue">JavaScript</span>
-              <span class="tag tag-blue">Java</span>
-              <span class="tag tag-blue">PHP</span>
-              <span class="tag tag-blue">HTML</span>
+              <span class="tag tag-blue">Python</span><span class="tag tag-blue">C / C++</span><span class="tag tag-blue">JavaScript</span><span class="tag tag-blue">Java</span><span class="tag tag-blue">PHP</span><span class="tag tag-blue">HTML</span>
             </div>
           </div>
 
           <div class="skill-group">
-            <div class="skill-group-label">Frameworks & Libraries</div>
+            <div class="skill-group-label">Frameworks &amp; Libraries</div>
             <div class="tags">
-              <span class="tag tag-purple">Django</span>
-              <span class="tag tag-purple">Flask</span>
-              <span class="tag tag-purple">OpenCV</span>
-              <span class="tag tag-purple">YOLO (v8)</span>
-              <span class="tag tag-purple">TensorFlow</span>
-              <span class="tag tag-purple">PyTorch</span>
-              <span class="tag tag-purple">Keras</span>
-              <span class="tag tag-purple">ONNX Runtime</span>
-              <span class="tag tag-purple">FAISS</span>
-              <span class="tag tag-purple">face_recognition</span>
-              <span class="tag tag-purple">Scikit-learn</span>
-              <span class="tag tag-purple">NumPy</span>
-              <span class="tag tag-purple">Pandas</span>
-              <span class="tag tag-purple">Matplotlib</span>
-              <span class="tag tag-purple">NLTK</span>
-              <span class="tag tag-purple">SpaCy</span>
-              <span class="tag tag-purple">FFmpeg</span>
+              <span class="tag tag-purple">Django</span><span class="tag tag-purple">Flask</span><span class="tag tag-purple">OpenCV</span><span class="tag tag-purple">Ultralytics YOLO</span><span class="tag tag-purple">TensorFlow</span><span class="tag tag-purple">PyTorch</span><span class="tag tag-purple">Keras</span><span class="tag tag-purple">ONNX Runtime</span><span class="tag tag-purple">FAISS</span><span class="tag tag-purple">face_recognition</span><span class="tag tag-purple">Scikit-learn</span><span class="tag tag-purple">NumPy</span><span class="tag tag-purple">Pandas</span><span class="tag tag-purple">Matplotlib</span><span class="tag tag-purple">NLTK</span><span class="tag tag-purple">spaCy</span><span class="tag tag-purple">FFmpeg</span>
             </div>
           </div>
 
           <div class="skill-group">
-            <div class="skill-group-label">Machine Learning / AI</div>
+            <div class="skill-group-label">Computer Vision &amp; Video Analytics</div>
             <div class="tags">
-              <span class="tag tag-rose">Face Recognition</span>
-              <span class="tag tag-rose">Object Detection</span>
-              <span class="tag tag-rose">Image Segmentation</span>
-              <span class="tag tag-rose">Pose Estimation</span>
-              <span class="tag tag-rose">Deep Learning</span>
-              <span class="tag tag-rose">Transfer Learning</span>
-              <span class="tag tag-rose">Real-Time Inference</span>
-              <span class="tag tag-rose">Anomaly Detection</span>
-              <span class="tag tag-rose">Embedding Techniques</span>
-              <span class="tag tag-rose">Custom Model Training</span>
-              <span class="tag tag-rose">Virtual Try-On</span>
+              <span class="tag tag-rose">Computer Vision</span><span class="tag tag-rose">Image Processing</span><span class="tag tag-rose">Video Analytics</span><span class="tag tag-rose">Object Detection</span><span class="tag tag-rose">Object Tracking</span><span class="tag tag-rose">Multi-Object Tracking</span><span class="tag tag-rose">Image Segmentation</span><span class="tag tag-rose">Pose Estimation</span><span class="tag tag-rose">Face Detection</span><span class="tag tag-rose">Face Recognition</span><span class="tag tag-rose">Facial Analysis</span><span class="tag tag-rose">OCR</span><span class="tag tag-rose">Heatmap Generation</span><span class="tag tag-rose">Line-Crossing Detection</span><span class="tag tag-rose">RTSP Video Processing</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group-label">Machine Learning &amp; AI</div>
+            <div class="tags">
+              <span class="tag tag-rose">Machine Learning</span><span class="tag tag-rose">Deep Learning</span><span class="tag tag-rose">CNN</span><span class="tag tag-rose">LSTM</span><span class="tag tag-rose">Transfer Learning</span><span class="tag tag-rose">Custom Model Training</span><span class="tag tag-rose">Face Embeddings</span><span class="tag tag-rose">Vector Similarity Search</span><span class="tag tag-rose">Embedding-Based Retrieval</span><span class="tag tag-rose">Facial Expression Analysis</span><span class="tag tag-rose">Real-Time Inference</span><span class="tag tag-rose">Model Optimization</span><span class="tag tag-rose">Virtual Try-On</span><span class="tag tag-rose">LLMs · Ollama · Qwen3:8B</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group-label">Edge AI &amp; Deployment</div>
+            <div class="tags">
+              <span class="tag tag-cyan">NVIDIA Jetson AGX</span><span class="tag tag-cyan">Jetson Nano</span><span class="tag tag-cyan">TensorRT</span><span class="tag tag-cyan">ONNX</span><span class="tag tag-cyan">ONNX Runtime</span><span class="tag tag-cyan">Edge AI</span><span class="tag tag-cyan">GPU Inference</span><span class="tag tag-cyan">Embedded AI</span><span class="tag tag-cyan">Edge Device Optimization</span><span class="tag tag-cyan">Model Deployment</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group-label">Video Streaming</div>
+            <div class="tags">
+              <span class="tag tag-amber">RTSP</span><span class="tag tag-amber">RTMP</span><span class="tag tag-amber">FFmpeg</span><span class="tag tag-amber">Live Video Streaming</span><span class="tag tag-amber">Video Processing</span><span class="tag tag-amber">Video Restreaming</span><span class="tag tag-amber">Multi-Stream Processing</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group-label">Backend &amp; APIs</div>
+            <div class="tags">
+              <span class="tag tag-purple">Flask</span><span class="tag tag-purple">Django</span><span class="tag tag-purple">REST API Development</span><span class="tag tag-purple">API Integration</span><span class="tag tag-purple">Postman</span>
             </div>
           </div>
 
           <div class="skill-group">
             <div class="skill-group-label">Databases</div>
             <div class="tags">
-              <span class="tag tag-emerald">MySQL</span>
-              <span class="tag tag-emerald">MS SQL</span>
-              <span class="tag tag-emerald">ClickHouse</span>
-              <span class="tag tag-emerald">SQLite</span>
+              <span class="tag tag-emerald">MySQL</span><span class="tag tag-emerald">MS SQL</span><span class="tag tag-emerald">ClickHouse</span><span class="tag tag-emerald">SQLite</span>
             </div>
           </div>
 
           <div class="skill-group">
-            <div class="skill-group-label">Edge Computing</div>
+            <div class="skill-group-label">Embedded &amp; IoT</div>
             <div class="tags">
-              <span class="tag tag-cyan">NVIDIA Jetson AGX</span>
-              <span class="tag tag-cyan">Jetson Nano</span>
-              <span class="tag tag-cyan">TensorRT</span>
-              <span class="tag tag-cyan">ONNX Deployment</span>
-              <span class="tag tag-cyan">Embedded Systems</span>
-              <span class="tag tag-cyan">Low-Power Optimization</span>
+              <span class="tag tag-cyan">Arduino</span><span class="tag tag-cyan">MQ Gas Sensors</span><span class="tag tag-cyan">Embedded Systems</span><span class="tag tag-cyan">Sensor Integration</span><span class="tag tag-cyan">IoT</span>
             </div>
           </div>
 
           <div class="skill-group">
-            <div class="skill-group-label">Tools & Technologies</div>
+            <div class="skill-group-label">Development &amp; Performance</div>
             <div class="tags">
-              <span class="tag tag-amber">Git</span>
-              <span class="tag tag-amber">REST APIs</span>
-              <span class="tag tag-amber">Postman</span>
-              <span class="tag tag-amber">Arduino</span>
-              <span class="tag tag-amber">SFTP</span>
-              <span class="tag tag-amber">Multiprocessing</span>
-              <span class="tag tag-amber">Threading</span>
+              <span class="tag tag-amber">Git</span><span class="tag tag-amber">SFTP</span><span class="tag tag-amber">Multiprocessing</span><span class="tag tag-amber">Multithreading</span><span class="tag tag-amber">Concurrent Processing</span><span class="tag tag-amber">Performance Optimization</span>
             </div>
           </div>
         </div>
       </div>
-
       <!-- RIGHT COLUMN -->
-      <div class="col">
+      <div class="col col-sidebar">
         <!-- CONTACT -->
         <div class="card reveal">
           <div class="section-tag"><span class="tag-dot"></span> Contact</div>
@@ -1405,6 +1242,46 @@
     }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    /* ── PROJECT PORTFOLIO ── */
+    const projectGroups = [
+      { title: 'Featured Projects', projects: [
+        { name: 'Smart Surveillance System – NVIDIA Jetson AGX', icon: '🛡️', featured: true, description: 'Built an edge AI surveillance system for real-time person and vehicle detection from live camera streams. It tracks entry and exit, detects line crossings, assigns object IDs and generates activity heatmaps, with YOLO and TensorRT optimized for continuous Jetson AGX operation.', tags: ['NVIDIA Jetson AGX', 'Python', 'YOLO', 'OpenCV', 'TensorRT', 'Computer Vision', 'RTSP'] },
+        { name: 'AI Job Agent – Intelligent Resume & Job Matching', icon: '✦', featured: true, description: 'Built a Python system that compares resumes with job descriptions, calculates match and ATS scores, and identifies skill gaps and relevant keywords. It generates tailored CV content with locally hosted Qwen3:8B through Ollama, validates it against the source resume, and exports DOCX and PDF files.', tags: ['Python', 'Qwen3:8B', 'Ollama', 'LLM', 'ATS Matching', 'NLP', 'DOCX / PDF'] },
+        { name: 'Face Search System using FAISS', icon: '🔍', description: 'Built a face search pipeline that creates deep-learning face embeddings from image datasets. FAISS indexes the vectors for fast top-K similarity search across large collections.', tags: ['Python', 'FAISS', 'Face Embeddings', 'Deep Learning', 'OpenCV', 'Vector Search'] },
+        { name: 'Real-Time Face Recognition', icon: '👤', description: 'Implemented live face recognition by extracting facial embeddings from camera feeds and comparing them with registered identities. The system supports recognition across changes in lighting, viewing angle, masks and glasses.', tags: ['Python', 'OpenCV', 'Face Recognition', 'Face Embeddings', 'Deep Learning', 'RTSP'] },
+        { name: 'ANPR with OCR', icon: '🚗', description: 'Developed an Automatic Number Plate Recognition system for live camera streams. It detects vehicle plates and applies OCR to extract plate numbers for transport monitoring and security use cases.', tags: ['Python', 'OpenCV', 'YOLO', 'OCR', 'Deep Learning', 'Computer Vision', 'RTSP'] },
+        { name: 'Fall Detection with YOLOv8 Pose', icon: '🤸', description: 'Implemented fall detection by analyzing human pose from live RTSP camera streams. The system identifies postures associated with falls and can trigger alerts for safety monitoring.', tags: ['Python', 'YOLOv8 Pose', 'OpenCV', 'Pose Estimation', 'Computer Vision', 'RTSP'] },
+        { name: 'Drowsiness Detection', icon: '😴', description: 'Developed a real-time system that monitors facial and eye-related visual cues from live camera feeds. It detects prolonged signs of fatigue and generates alerts for driver or operator safety.', tags: ['Python', 'OpenCV', 'Face Detection', 'Computer Vision', 'Deep Learning', 'Real-Time Video'] },
+        { name: 'Nail Segmentation for Virtual Try-On', icon: '💅', description: 'Built a YOLO-based segmentation system to isolate fingernail regions in images for a virtual nail try-on experience. The segmented regions provide the input for downstream image processing and design visualization.', tags: ['Python', 'YOLO', 'Segmentation', 'OpenCV', 'Computer Vision', 'Deep Learning'] }
+      ]},
+      { title: 'Computer Vision & Surveillance', projects: [
+        { name: 'InOut Person Counter', icon: '🚶', description: 'Built a people-counting system for RTSP camera streams using YOLO detection and object tracking. Line-crossing events and assigned object IDs track entry and exit while maintaining area occupancy counts.', tags: ['Python', 'YOLO', 'OpenCV', 'Object Tracking', 'Line Crossing', 'RTSP'] },
+        { name: 'Fence Crossing Detection', icon: '🚧', description: 'Developed perimeter monitoring that detects people crossing configured boundaries in live surveillance feeds. YOLO detection and line-crossing logic identify potential breaches and generate alerts.', tags: ['Python', 'YOLO', 'OpenCV', 'Object Tracking', 'Line Crossing', 'RTSP'] },
+        { name: 'Occupancy Limit Alert', icon: '⚠️', description: 'Built an occupancy monitor that counts people in a defined area from RTSP camera streams. It raises an alert when the detected count exceeds the configured limit.', tags: ['Python', 'YOLO', 'OpenCV', 'Object Tracking', 'RTSP', 'Computer Vision'] },
+        { name: 'PPE / Safety Dress Detection', icon: '🦺', description: 'Developed a YOLO-based video monitoring system to detect safety equipment such as helmets and vests. It helps surface PPE compliance issues in industrial environments.', tags: ['Python', 'YOLO', 'OpenCV', 'Object Detection', 'Computer Vision', 'RTSP'] },
+        { name: 'Smoke Detection – Computer Vision', icon: '🔥', description: 'Developed a real-time vision system that analyzes surveillance video for visible smoke. Object detection identifies smoke in live feeds and can be connected to early-warning alerts.', tags: ['Python', 'YOLO', 'OpenCV', 'Deep Learning', 'Object Detection', 'RTSP'] },
+        { name: 'Ambulance Detection', icon: '🚑', description: 'Built a computer vision system that detects ambulances in camera feeds and visual data. The detection can support traffic monitoring and emergency-response workflows.', tags: ['Python', 'YOLO', 'OpenCV', 'Object Detection', 'Deep Learning', 'Computer Vision'] },
+        { name: 'People Heatmap', icon: '🌡️', description: 'Developed a people heatmap system that turns tracked movement in live surveillance video into visual activity patterns. It highlights frequently visited and high-traffic areas over time.', tags: ['Python', 'YOLO', 'OpenCV', 'Object Tracking', 'Computer Vision', 'RTSP'] },
+        { name: 'Facial Emotion Detection', icon: '😊', description: 'Built an expression analysis system for images and video streams that detects faces and classifies visible facial expressions. The pipeline processes facial regions for real-time analysis.', tags: ['Python', 'OpenCV', 'DeepFace', 'Deep Learning', 'Computer Vision'] },
+        { name: 'Video Restreamer', icon: '📡', description: 'Developed a video restreaming service that receives live camera streams and distributes them to multiple destinations. It handles continuous processing for surveillance and live-video workflows.', tags: ['Python', 'FFmpeg', 'RTSP', 'RTMP', 'Video Streaming', 'OpenCV'] }
+      ]},
+      { title: 'Machine Learning / AI', projects: [
+        { name: 'Plant Leaf Disease Detection', icon: '🌿', description: 'Built a CNN image classifier that identifies potential diseases from plant leaf images. It learns visual patterns in healthy and damaged leaves to support automated crop monitoring.', tags: ['Python', 'TensorFlow', 'CNN', 'Deep Learning', 'Image Classification', 'OpenCV'] },
+        { name: 'Gold Price Prediction', icon: '📈', description: 'Developed a forecasting model using historical gold price time-series data. An LSTM learns temporal patterns in the data to generate future price predictions.', tags: ['Python', 'TensorFlow', 'LSTM', 'Deep Learning', 'Time-Series Analysis', 'Pandas'] },
+        { name: 'COVID-19 Prediction & Trend Analysis', icon: '🦠', description: 'Applied machine-learning models to symptom-based data for COVID-19 prediction and explored epidemiological trend analysis. The project used data analysis and forecasting techniques for early detection and outbreak insights.', tags: ['Python', 'Machine Learning', 'Pandas', 'Scikit-learn', 'Data Analysis', 'Time-Series Analysis'] },
+        { name: 'Sign Language Detection', icon: '🤟', description: 'Developed a vision-based system to recognize and classify sign language gestures from visual input. It explores gesture recognition for accessibility and human-computer interaction.', tags: ['Python', 'OpenCV', 'Deep Learning', 'Computer Vision', 'Image Classification'] },
+        { name: 'AI Chatbot with Database Integration', icon: '🤖', description: 'Built an NLP chatbot that interprets user questions and retrieves relevant information from a database. It lets users query structured data using natural-language prompts.', tags: ['Python', 'NLP', 'AI', 'Chatbot', 'SQL', 'Database Integration'] }
+      ]},
+      { title: 'Embedded / IoT', projects: [
+        { name: 'Smoke Detection – Arduino + MQ Sensor', icon: '🔧', description: 'Designed an Arduino-based smoke and gas detector using MQ-series sensors. It continuously reads sensor values and triggers alerts when gas concentration crosses a defined threshold.', tags: ['Arduino', 'C/C++', 'MQ Gas Sensor', 'Embedded Systems', 'Sensor Integration', 'IoT'] }
+      ]},
+      { title: 'Additional Systems', projects: [
+        { name: 'Pick Management Software', icon: '📦', description: 'Worked with pick management software supporting warehouse order-picking workflows and inventory operations. The system helps coordinate picking activity and improve fulfillment accuracy.', tags: ['Warehouse Management', 'Pick Management', 'Inventory Operations', 'Order Fulfillment'] }
+      ]}
+    ];
+    const projectGrid = document.getElementById('projectsGrid');
+    projectGrid.innerHTML = projectGroups.map(group => `<h3 class="project-group-title">${group.title}</h3>${group.projects.map(project => `<article class="project-card${project.featured ? ' featured-project' : ''}"><div class="project-header"><div class="project-emoji">${project.icon}</div><h4 class="project-name">${project.name}</h4></div><p class="project-desc">${project.description}</p><div class="project-tags">${project.tags.map(tag => `<span>${tag}</span>`).join('')}</div></article>`).join('')}`).join('');
 
     /* ── ORGANIC HERO IMAGE REVEAL ── */
     const hero = document.querySelector('.hero');
