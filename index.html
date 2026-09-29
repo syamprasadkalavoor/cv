@@ -1,0 +1,1487 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Syamprasad Kalavoor — Software Developer | AI/ML Engineer</title>
+  <meta name="description" content="Portfolio of Syamprasad Kalavoor — Software Developer with 4+ years in Machine Learning, Computer Vision, and Real-time Video Analytics." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ═══════════════════════════════════════════
+       DESIGN SYSTEM
+    ═══════════════════════════════════════════ */
+    :root {
+      --accent-h: 343;
+      --accent: hsl(var(--accent-h), 85%, 58%);
+      --accent-glow: hsl(var(--accent-h), 100%, 68%);
+      --accent-soft: hsla(var(--accent-h), 85%, 58%, 0.10);
+      --accent-mid: hsla(var(--accent-h), 85%, 58%, 0.18);
+      --purple: hsl(270, 75%, 62%);
+      --purple-soft: hsla(270, 75%, 62%, 0.10);
+      --emerald: hsl(158, 64%, 46%);
+      --emerald-soft: hsla(158, 64%, 46%, 0.10);
+      --amber: hsl(38, 92%, 55%);
+      --amber-soft: hsla(38, 92%, 55%, 0.10);
+      --rose: hsl(350, 80%, 60%);
+      --rose-soft: hsla(350, 80%, 60%, 0.10);
+      --cyan: hsl(190, 80%, 50%);
+      --cyan-soft: hsla(190, 80%, 50%, 0.10);
+
+      --bg-base: #06090f;
+      --bg-raised: #0d1117;
+      --bg-card: rgba(13, 17, 23, 0.75);
+      --bg-card-hover: rgba(18, 24, 33, 0.88);
+      --bg-surface: rgba(22, 27, 38, 0.6);
+      --border: rgba(255, 255, 255, 0.055);
+      --border-hover: rgba(255, 255, 255, 0.11);
+
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --text-muted: #545d68;
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-full: 100px;
+
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --transition: 0.3s var(--ease);
+    }
+
+    body.light {
+      --bg-base: #f4f6f9;
+      --bg-raised: #ffffff;
+      --bg-card: rgba(255, 255, 255, 0.8);
+      --bg-card-hover: rgba(255, 255, 255, 0.95);
+      --bg-surface: rgba(240, 243, 248, 0.7);
+      --border: rgba(0, 0, 0, 0.06);
+      --border-hover: rgba(0, 0, 0, 0.12);
+      --text-primary: #0d1117;
+      --text-secondary: #57606a;
+      --text-muted: #8b949e;
+    }
+
+    /* ═══ RESET ═══ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg-base);
+      color: var(--text-primary);
+      line-height: 1.65;
+      min-height: 100vh;
+      transition: background var(--transition), color var(--transition);
+      overflow-x: hidden;
+    }
+
+    /* ═══ AMBIENT BG ═══ */
+    .bg-ambient {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bg-ambient .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.12;
+      animation: orbFloat 20s ease-in-out infinite alternate;
+    }
+
+    .bg-ambient .orb:nth-child(1) {
+      width: 600px; height: 600px;
+      background: var(--accent);
+      top: -15%; left: -10%;
+      animation-duration: 22s;
+    }
+    .bg-ambient .orb:nth-child(2) {
+      width: 500px; height: 500px;
+      background: var(--purple);
+      bottom: -10%; right: -10%;
+      animation-duration: 18s;
+      animation-delay: -5s;
+    }
+    .bg-ambient .orb:nth-child(3) {
+      width: 350px; height: 350px;
+      background: var(--emerald);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation-duration: 25s;
+      animation-delay: -10s;
+    }
+
+    body.light .bg-ambient .orb { opacity: 0.07; }
+
+    @keyframes orbFloat {
+      0% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -40px) scale(1.05); }
+      66% { transform: translate(-20px, 20px) scale(0.95); }
+      100% { transform: translate(10px, -10px) scale(1.02); }
+    }
+
+    /* Noise texture */
+    .bg-ambient::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      opacity: 0.5;
+    }
+
+    /* ═══ SCROLLBAR ═══ */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 10px; }
+
+    /* ═══ PAGE WRAPPER ═══ */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 24px 20px 50px;
+    }
+
+    /* ═══════════════════════════════════════════
+       TOP NAV
+    ═══════════════════════════════════════════ */
+    .topnav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 18px;
+      margin-bottom: 28px;
+      background: var(--bg-card);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      animation: fadeSlideDown 0.6s var(--ease-out) forwards;
+    }
+
+    .topnav-logo {
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -1px;
+    }
+
+    .topnav-logo span {
+      background: linear-gradient(135deg, var(--accent), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .topnav-links {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .topnav-links a, .topnav-links button {
+      padding: 7px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 500;
+      font-family: inherit;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .topnav-links a:hover, .topnav-links button:hover {
+      color: var(--text-primary);
+      background: var(--bg-surface);
+      border-color: var(--border-hover);
+    }
+
+    .topnav-links .nav-primary {
+      background: linear-gradient(135deg, var(--accent), var(--purple));
+      color: #fff;
+      border: none;
+      font-weight: 600;
+    }
+
+    .topnav-links .nav-primary:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px hsla(var(--accent-h), 80%, 50%, 0.3);
+    }
+
+    /* ═══════════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════════ */
+    .hero {
+      text-align: center;
+      padding: 56px 28px 48px;
+      margin-bottom: 28px;
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      animation: fadeSlideDown 0.7s 0.1s var(--ease-out) both;
+    }
+
+    /* The portraits share one SVG viewport so the base and reveal stay aligned. */
+    .hero-portrait {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .hero > .hero-portrait { position: absolute; z-index: 0; }
+    .hero-portrait-base { opacity: .58; }
+    .hero-portrait-reveal { opacity: 1; }
+    .hero-portrait-shade {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: linear-gradient(90deg, rgba(6,9,15,.89), rgba(6,9,15,.62) 48%, rgba(6,9,15,.3)), linear-gradient(0deg, rgba(6,9,15,.76), transparent 62%);
+    }
+    .hero > .hero-portrait-shade { position: absolute; z-index: 0; }
+    .hero-reveal-cursor {
+      position: absolute;
+      z-index: 3;
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.48);
+      border-radius: 50%;
+      color: #fff;
+      background: rgba(6,9,15,.32);
+      backdrop-filter: blur(8px);
+      font: 500 8px/1 'JetBrains Mono', monospace;
+      letter-spacing: .12em;
+      pointer-events: none;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(.82);
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .hero > .hero-reveal-cursor { position: absolute; z-index: 3; }
+    .hero.is-revealing .hero-reveal-cursor { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+    /* Animated border glow */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: inherit;
+      padding: 2px;
+      background: conic-gradient(from 0deg, var(--accent), var(--purple), var(--emerald), var(--accent));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.25;
+      animation: borderRotate 6s linear infinite;
+    }
+
+    @keyframes borderRotate {
+      to { filter: hue-rotate(360deg); }
+    }
+
+    .hero > * { position: relative; z-index: 1; }
+
+    .avatar-ring {
+      display: inline-block;
+      position: relative;
+      margin-bottom: 22px;
+    }
+
+    .avatar-ring::before {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--purple), var(--emerald));
+      animation: ringPulse 4s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    @keyframes ringPulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.04); }
+    }
+
+    .avatar {
+      width: 136px;
+      height: 136px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--bg-base);
+      display: block;
+    }
+
+    .hero-name {
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .hero-statement { max-width: 760px; margin: 0 auto 14px; font-size: clamp(27px, 5vw, 49px); line-height: 1.04; letter-spacing: -.055em; font-weight: 800; text-wrap: balance; }
+    .hero-statement em { color: #ff3f6c; font-style: normal; }
+    .hero-kicker { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px; color: rgba(255,255,255,.78); font: 500 10px/1 'JetBrains Mono', monospace; letter-spacing: .16em; text-transform: uppercase; }
+    .hero-kicker::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #ff3f6c; box-shadow: 0 0 12px #ff3f6c; }
+    .hero-name { text-shadow: 0 2px 20px rgba(0,0,0,.38); }
+    .hero-role, .hero-tagline { text-shadow: 0 1px 12px rgba(0,0,0,.45); }
+
+    .hero-role {
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .hero-role strong {
+      background: linear-gradient(135deg, var(--accent), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+
+    .hero-tagline {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      max-width: 580px;
+      margin: 0 auto 24px;
+    }
+
+    .hero-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--emerald);
+      font-weight: 500;
+      margin-bottom: 24px;
+      padding: 6px 16px;
+      background: var(--emerald-soft);
+      border-radius: var(--radius-full);
+      border: 1px solid hsla(158, 64%, 46%, 0.15);
+    }
+
+    .pulse-dot {
+      width: 7px; height: 7px;
+      background: var(--emerald);
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .pulse-dot::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: var(--emerald);
+      animation: dotPulse 2s ease-in-out infinite;
+      opacity: 0;
+    }
+
+    @keyframes dotPulse {
+      0% { transform: scale(1); opacity: 0.6; }
+      100% { transform: scale(2.5); opacity: 0; }
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ═══════════════════════════════════════════
+       BUTTONS
+    ═══════════════════════════════════════════ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 20px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      backdrop-filter: blur(10px);
+      color: var(--text-primary);
+      font-size: 13px;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all var(--transition);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+
+    .btn-glow {
+      background: linear-gradient(135deg, var(--accent), var(--purple));
+      border: none;
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 4px 20px hsla(var(--accent-h), 80%, 50%, 0.3);
+    }
+
+    .btn-glow:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 32px hsla(var(--accent-h), 80%, 50%, 0.45);
+    }
+
+    .btn-outline-accent {
+      border-color: hsla(var(--accent-h), 80%, 58%, 0.25);
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .btn-outline-accent:hover {
+      background: var(--accent-mid);
+      border-color: var(--accent);
+    }
+
+    .btn-sm { padding: 7px 13px; font-size: 12px; }
+    .btn-icon { padding: 8px 10px; }
+
+    /* ═══════════════════════════════════════════
+       GRID LAYOUT
+    ═══════════════════════════════════════════ */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .col { display: flex; flex-direction: column; gap: 24px; }
+
+    @media (max-width: 920px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 500px) {
+      .hero-name { font-size: 28px; }
+      .hero-statement { font-size: 31px; }
+      .hero { padding: 36px 16px 32px; }
+      .page { padding: 14px 10px 40px; }
+      .card { padding: 20px; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+    }
+
+    /* ═══════════════════════════════════════════
+       CARDS
+    ═══════════════════════════════════════════ */
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      transition: all var(--transition);
+      position: relative;
+    }
+
+    .card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+
+    /* Stagger reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+
+    .section-tag .tag-dot {
+      width: 5px; height: 5px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-glow);
+    }
+
+    .card h2 { font-size: 18px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.3px; }
+    .card p { font-size: 14px; color: var(--text-secondary); }
+
+    /* ═══════════════════════════════════════════
+       STATS ROW
+    ═══════════════════════════════════════════ */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 16px 8px;
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+
+    .stat-value.blue { color: var(--accent); }
+    .stat-value.purple { color: var(--purple); }
+    .stat-value.emerald { color: var(--emerald); }
+
+    .stat-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ═══════════════════════════════════════════
+       EXPERIENCE TIMELINE
+    ═══════════════════════════════════════════ */
+    .timeline {
+      position: relative;
+      padding-left: 28px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent), var(--purple), var(--emerald));
+      border-radius: 2px;
+      opacity: 0.4;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 24px;
+      padding: 16px 18px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      transition: all var(--transition);
+    }
+
+    .timeline-item:last-child { margin-bottom: 0; }
+
+    .timeline-item:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+      transform: translateX(4px);
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -23px;
+      top: 22px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg-base);
+      box-shadow: 0 0 8px var(--accent-glow);
+    }
+
+    .timeline-item:nth-child(2)::before { background: var(--purple); box-shadow: 0 0 8px var(--purple); }
+    .timeline-item:nth-child(3)::before { background: var(--emerald); box-shadow: 0 0 8px var(--emerald); }
+
+    .timeline-date {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      margin-bottom: 8px;
+    }
+
+    .timeline-item:nth-child(2) .timeline-date { color: var(--purple); background: var(--purple-soft); }
+    .timeline-item:nth-child(3) .timeline-date { color: var(--emerald); background: var(--emerald-soft); }
+
+    .timeline-company {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .timeline-location {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .timeline-role {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* ═══════════════════════════════════════════
+       PROJECTS
+    ═══════════════════════════════════════════ */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+
+    .project-card {
+      padding: 16px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      transition: all var(--transition);
+      cursor: default;
+    }
+
+    .featured-project { grid-column: 1 / -1; padding: 20px; border-color: rgba(255,63,108,.22); background: linear-gradient(135deg, rgba(255,63,108,.075), var(--bg-surface) 58%); }
+    .featured-project .project-emoji { color: #ff3f6c; background: rgba(255,63,108,.14); }
+    .featured-project .project-name { font-size: 15px; }
+    .featured-project .project-desc { color: var(--text-secondary); font-size: 12px; max-width: 740px; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .project-tags span { border: 1px solid var(--border-hover); border-radius: 999px; padding: 4px 8px; color: var(--text-secondary); font: 10px 'JetBrains Mono', monospace; }
+    .timeline-details { margin: 9px 0 0; padding-left: 17px; color: var(--text-secondary); font-size: 12px; }
+    .timeline-details li + li { margin-top: 4px; }
+
+    .project-card:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .project-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .project-emoji {
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      background: var(--accent-soft);
+      border-radius: var(--radius-sm);
+      flex-shrink: 0;
+    }
+
+    .project-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .project-desc {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════════
+       SKILLS
+    ═══════════════════════════════════════════ */
+    .skill-group { margin-bottom: 18px; }
+    .skill-group:last-child { margin-bottom: 0; }
+
+    .skill-group-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .skill-group-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      padding: 5px 12px;
+      font-size: 11.5px;
+      font-weight: 500;
+      border-radius: var(--radius-full);
+      transition: all var(--transition);
+      border: 1px solid transparent;
+    }
+
+    .tag:hover { transform: translateY(-1px); }
+
+    .tag-blue { background: var(--accent-soft); color: var(--accent); border-color: hsla(var(--accent-h), 60%, 50%, 0.1); }
+    .tag-blue:hover { background: var(--accent-mid); box-shadow: 0 4px 12px hsla(var(--accent-h), 80%, 50%, 0.15); }
+    .tag-purple { background: var(--purple-soft); color: var(--purple); border-color: hsla(270, 60%, 50%, 0.1); }
+    .tag-purple:hover { background: hsla(270, 75%, 62%, 0.18); }
+    .tag-emerald { background: var(--emerald-soft); color: var(--emerald); border-color: hsla(158, 60%, 46%, 0.1); }
+    .tag-emerald:hover { background: hsla(158, 64%, 46%, 0.18); }
+    .tag-amber { background: var(--amber-soft); color: var(--amber); border-color: hsla(38, 80%, 55%, 0.1); }
+    .tag-amber:hover { background: hsla(38, 92%, 55%, 0.18); }
+    .tag-rose { background: var(--rose-soft); color: var(--rose); border-color: hsla(350, 70%, 60%, 0.1); }
+    .tag-rose:hover { background: hsla(350, 80%, 60%, 0.18); }
+    .tag-cyan { background: var(--cyan-soft); color: var(--cyan); border-color: hsla(190, 60%, 50%, 0.1); }
+    .tag-cyan:hover { background: hsla(190, 80%, 50%, 0.18); }
+
+    /* ═══════════════════════════════════════════
+       CONTACT SIDEBAR
+    ═══════════════════════════════════════════ */
+    .contact-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-secondary);
+      transition: color var(--transition);
+      font-size: 13px;
+    }
+
+    .contact-row:hover { color: var(--accent); }
+
+    .contact-icon {
+      width: 36px; height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+      transition: all var(--transition);
+    }
+
+    .contact-row:hover .contact-icon {
+      background: var(--accent-mid);
+      transform: scale(1.06);
+    }
+
+    .contact-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .contact-value { font-weight: 500; color: inherit; word-break: break-all; }
+
+    /* ═══════════════════════════════════════════
+       LANG CHIPS
+    ═══════════════════════════════════════════ */
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .chip {
+      padding: 6px 14px;
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border);
+      transition: all var(--transition);
+    }
+
+    .chip:hover { border-color: var(--border-hover); background: var(--bg-card-hover); }
+
+    /* ═══════════════════════════════════════════
+       EDUCATION
+    ═══════════════════════════════════════════ */
+    .edu-item {
+      padding: 14px 16px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: 10px;
+    }
+
+    .edu-item:last-child { margin-bottom: 0; }
+
+    .edu-degree {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .edu-detail {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* ═══════════════════════════════════════════
+       CTA CARD
+    ═══════════════════════════════════════════ */
+    .cta-card {
+      background: linear-gradient(135deg, hsla(var(--accent-h), 80%, 50%, 0.12), hsla(270, 70%, 50%, 0.08));
+      border-color: hsla(var(--accent-h), 60%, 50%, 0.15);
+      text-align: center;
+    }
+
+    .cta-card .cta-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .cta-card .cta-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .cta-card .btn { width: 100%; justify-content: center; }
+
+    /* ═══════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════ */
+    .footer {
+      text-align: center;
+      padding: 36px 0 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .footer .highlight {
+      background: linear-gradient(135deg, var(--accent), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+
+    /* ═══ ANIMATIONS ═══ */
+    @keyframes fadeSlideDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Ambient background -->
+  <div class="bg-ambient">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <div class="page">
+    <!-- ─── TOP NAV ─── -->
+    <nav class="topnav">
+      <div class="topnav-logo"><span>SK</span>.</div>
+      <div class="topnav-links">
+        <a href="#experience">Experience</a>
+        <a href="#projects">Work</a>
+        <button id="toggleTheme" aria-label="Toggle theme">☀️</button>
+        <a class="nav-primary" href="Syamprasad_cv.pdf" download>⬇ Download CV</a>
+      </div>
+    </nav>
+
+    <!-- ─── HERO ─── -->
+    <section class="hero">
+      <svg class="hero-portrait hero-portrait-base" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><image href="hero-clean.png" width="100" height="100" preserveAspectRatio="xMidYMid slice" /></svg>
+      <div class="hero-portrait-shade" aria-hidden="true"></div>
+      <svg class="hero-portrait hero-portrait-reveal" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs><filter id="revealFeather" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="0.45" /></filter><mask id="heroBlobMask" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><path id="heroBlobPath" fill="white" filter="url(#revealFeather)" /></mask></defs>
+        <image href="hero-futuristic.png" width="100" height="100" preserveAspectRatio="xMidYMid slice" mask="url(#heroBlobMask)" />
+      </svg>
+      <span class="hero-reveal-cursor" aria-hidden="true">REVEAL</span>
+      <div class="hero-kicker">Software · AI · Creative Technology</div>
+      <div class="avatar-ring">
+        <img src="img.jpeg" alt="Syamprasad Kalavoor" class="avatar" />
+      </div>
+      <p class="hero-statement">I build digital experiences that <em>feel alive.</em></p>
+      <h1 class="hero-name">Syamprasad Kalavoor</h1>
+      <p class="hero-role"><strong>Software Developer</strong> · AI/ML Engineer</p>
+      <p class="hero-tagline">
+        4+ years building production-grade solutions in Machine Learning, Computer Vision, and Real-time Video Analytics.
+        From NVIDIA Jetson edge deployments to scalable biometric systems.
+      </p>
+      <div class="hero-status"><span class="pulse-dot"></span> Available for opportunities · Thrissur, India</div>
+      <div class="hero-actions">
+        <a class="btn btn-glow" href="mailto:syamprasadkalavoor@gmail.com">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Let's Connect
+        </a>
+        <a class="btn btn-outline-accent" href="#projects">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+          View My Work
+        </a>
+        <a class="btn" href="Syamprasad_cv.pdf" download>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Resume PDF
+        </a>
+      </div>
+    </section>
+
+    <!-- ─── GRID ─── -->
+    <div class="grid">
+      <!-- LEFT -->
+      <div class="col">
+
+        <!-- ABOUT -->
+        <div class="card reveal">
+          <div class="section-tag"><span class="tag-dot"></span> Profile</div>
+          <p>
+            Experienced Python Developer with over <strong>4 years</strong> delivering solutions across machine learning,
+            computer vision, and web development. Strong background in building real-time, data-driven applications for
+            video analytics, biometric systems, and interactive web platforms. Capable of designing robust backend systems,
+            implementing AI models, and integrating intelligent features into scalable applications.
+          </p>
+          <div class="stats">
+            <div class="stat">
+              <div class="stat-value blue">4+</div>
+              <div class="stat-label">Years Exp</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value purple">20+</div>
+              <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value emerald">3</div>
+              <div class="stat-label">Companies</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXPERIENCE -->
+        <div class="card reveal" id="experience">
+          <div class="section-tag"><span class="tag-dot"></span> Work Experience</div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-date">May 2025 — Present</div>
+              <div class="timeline-company">Freelance / Independent</div>
+              <div class="timeline-role">Freelance Developer &amp; Technical Mentor</div>
+              <ul class="timeline-details">
+                <li>Deliver Python, machine learning and computer-vision projects shaped around client requirements.</li>
+                <li>Lead practical mentoring and workshops in Python, ML and end-to-end project development.</li>
+              </ul>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">Sep 2022 — May 2025</div>
+              <div class="timeline-company">Gama Security Solution</div>
+              <div class="timeline-location">📍 Dubai, UAE</div>
+              <div class="timeline-role">Python Developer — Video Analytics & ML</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">May 2021 — May 2022</div>
+              <div class="timeline-company">Nacre Systems</div>
+              <div class="timeline-location">📍 Palakkad, India</div>
+              <div class="timeline-role">Python Developer — Video Analytics, ML & Web</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">Nov 2020 — May 2021</div>
+              <div class="timeline-company">Grapesgenix Technical Solutions</div>
+              <div class="timeline-location">📍 Thrissur, India</div>
+              <div class="timeline-role">Python Developer — Video Analytics, ML & Web</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECTS -->
+        <div class="card reveal" id="projects">
+          <div class="section-tag"><span class="tag-dot"></span> Projects</div>
+          <div class="projects-grid">
+            <div class="project-card featured-project">
+              <div class="project-header">
+                <div class="project-emoji">✦</div>
+                <div class="project-name">AI Job Agent – Intelligent Resume &amp; Job Matching System</div>
+              </div>
+              <div class="project-desc">A Python-based AI system that analyzes resumes against job descriptions, calculates match and ATS scores, surfaces skill gaps and ATS keywords, then generates tailored CV content with locally hosted Qwen3:8B via Ollama. Generated content is validated against the source resume before DOCX and PDF output.</div>
+              <div class="project-tags"><span>Python</span><span>Qwen3:8B</span><span>Ollama</span><span>ATS Matching</span><span>DOCX / PDF</span></div>
+            </div>
+            <div class="project-card">
+              <div class="project-header">
+                <div class="project-emoji">🛡️</div>
+                <div class="project-name">Smart Surveillance on Jetson AGX</div>
+              </div>
+              <div class="project-desc">Edge AI real-time people/vehicle detection, line crossing, heatmaps, TensorRT optimized</div>
+            </div>
+            <div class="project-card">
+              <div class="project-header">
+                <div class="project-emoji">🚗</div>
+                <div class="project-name">ANPR + OCR (RTSP)</div>
+              </div>
+              <div class="project-desc">Automatic number plate recognition from live RTSP streams with deep learning OCR</div>
+            </div>
+            <div class="project-card">
+              <div class="project-header">
+                <div class="project-emoji">🔥</div>
+                <div class="project-name">Person Heatmapping</div>
+              </div>
+              <div class="project-desc">Real-time visualization of human movement patterns & high-activity zones</div>
+            </div>
+            <div class="project-card">
+              <div class="project-header">
+                <div class="project-emoji">👤</div>
+                <div class="project-name">Real-Time Face Recognition</div>
+              </div>
+              <div class="project-desc">Deep learning face ID with embeddings for biometric security & access control</div>
+            </div>
+            <div class="project-card">
+              <div class="project-header">
+                <div class="project-emoji">🔍</div>
+                <div class="project-name">Face Search (FAISS)</div>
+              </div>
+              <div class="project-desc">High-speed top-k nearest neighbor face matching at scale</div>
+            </div>
+            <div class="project-card">
+              <div class="project-header">
+                <div class="project-emoji">🤸</div>
+                <div class="project-name">Fall Detection (YOLOv8 Pose)</div>
+              </div>
+              <div class="project-desc">Pose estimation from RTSP streams for real-time safety alerts</div>
+            </div>
+            <div class="project-card">
+              <div class="project-header">
+                <div class="project-emoji">🦺</div>
+                <div class="project-name">PPE Safety Detection</div>
+              </div>
+              <div class="project-desc">Helmet, vest compliance monitoring via YOLO from RTSP video</div>
+            </div>
+            <div class="project-card">
+              <div class="project-header">
+                <div class="project-emoji">💅</div>
+                <div class="project-name">Nail Segmentation (YOLO)</div>
+              </div>
+              <div class="project-desc">Beauty tech virtual try-on using YOLO-based nail segmentation</div>
+            </div>
+            <div class="project-card">
+              <div class="project-header">
+                <div class="project-emoji">😊</div>
+                <div class="project-name">Emotion Detection</div>
+              </div>
+              <div class="project-desc">Facial expression analysis from images & videos for emotional state</div>
+            </div>
+            <div class="project-card">
+              <div class="project-header">
+                <div class="project-emoji">🚶</div>
+                <div class="project-name">InOut Person Counter</div>
+              </div>
+              <div class="project-desc">YOLO detection with line-crossing logic for room occupancy</div>
+            </div>
+            <div class="project-card">
+              <div class="project-header">
+                <div class="project-emoji">🚧</div>
+                <div class="project-name">Fence Crossing Detection</div>
+              </div>
+              <div class="project-desc">Perimeter breach alerts using RTSP stream analysis</div>
+            </div>
+            <div class="project-card">
+              <div class="project-header">
+                <div class="project-emoji">⚠️</div>
+                <div class="project-name">Occupancy Limit Alert</div>
+              </div>
+              <div class="project-desc">Real-time alert when room exceeds defined person limit</div>
+            </div>
+            <div class="project-card">
+              <div class="project-header">
+                <div class="project-emoji">🤟</div>
+                <div class="project-name">Sign Language Detection</div>
+              </div>
+              <div class="project-desc">Gesture recognition for accessibility & hearing impaired</div>
+            </div>
+            <div class="project-card">
+              <div class="project-header">
+                <div class="project-emoji">🌿</div>
+                <div class="project-name">Plant Disease Detection</div>
+              </div>
+              <div class="project-desc">CNN-based leaf disease classification from images</div>
+            </div>
+            <div class="project-card">
+              <div class="project-header">
+                <div class="project-emoji">🤖</div>
+                <div class="project-name">AI Chatbot (NLP)</div>
+              </div>
+              <div class="project-desc">NLP-powered customer Q&A with database integration</div>
+            </div>
+            <div class="project-card">
+              <div class="project-header">
+                <div class="project-emoji">🚑</div>
+                <div class="project-name">Ambulance Detection</div>
+              </div>
+              <div class="project-desc">Computer vision system to detect ambulances from static cameras</div>
+            </div>
+            <div class="project-card">
+              <div class="project-header">
+                <div class="project-emoji">📈</div>
+                <div class="project-name">Gold Price Prediction</div>
+              </div>
+              <div class="project-desc">LSTM neural network for time-series price forecasting</div>
+            </div>
+            <div class="project-card">
+              <div class="project-header">
+                <div class="project-emoji">🦠</div>
+                <div class="project-name">COVID-19 Prediction</div>
+              </div>
+              <div class="project-desc">ML models for diagnosis prediction & outbreak forecasting</div>
+            </div>
+            <div class="project-card">
+              <div class="project-header">
+                <div class="project-emoji">📦</div>
+                <div class="project-name">Pick Management Software</div>
+              </div>
+              <div class="project-desc">Warehouse operations optimizer for accurate order fulfillment</div>
+            </div>
+            <div class="project-card">
+              <div class="project-header">
+                <div class="project-emoji">🔧</div>
+                <div class="project-name">Smoke Detection (Arduino)</div>
+              </div>
+              <div class="project-desc">Real-time smoke/gas detection using Arduino & MQ sensors</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SKILLS -->
+        <div class="card reveal">
+          <div class="section-tag"><span class="tag-dot"></span> Technical Skills</div>
+
+          <div class="skill-group">
+            <div class="skill-group-label">Programming Languages</div>
+            <div class="tags">
+              <span class="tag tag-blue">Python</span>
+              <span class="tag tag-blue">C</span>
+              <span class="tag tag-blue">C++</span>
+              <span class="tag tag-blue">JavaScript</span>
+              <span class="tag tag-blue">Java</span>
+              <span class="tag tag-blue">PHP</span>
+              <span class="tag tag-blue">HTML</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group-label">Frameworks & Libraries</div>
+            <div class="tags">
+              <span class="tag tag-purple">Django</span>
+              <span class="tag tag-purple">Flask</span>
+              <span class="tag tag-purple">OpenCV</span>
+              <span class="tag tag-purple">YOLO (v8)</span>
+              <span class="tag tag-purple">TensorFlow</span>
+              <span class="tag tag-purple">PyTorch</span>
+              <span class="tag tag-purple">Keras</span>
+              <span class="tag tag-purple">ONNX Runtime</span>
+              <span class="tag tag-purple">FAISS</span>
+              <span class="tag tag-purple">face_recognition</span>
+              <span class="tag tag-purple">Scikit-learn</span>
+              <span class="tag tag-purple">NumPy</span>
+              <span class="tag tag-purple">Pandas</span>
+              <span class="tag tag-purple">Matplotlib</span>
+              <span class="tag tag-purple">NLTK</span>
+              <span class="tag tag-purple">SpaCy</span>
+              <span class="tag tag-purple">FFmpeg</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group-label">Machine Learning / AI</div>
+            <div class="tags">
+              <span class="tag tag-rose">Face Recognition</span>
+              <span class="tag tag-rose">Object Detection</span>
+              <span class="tag tag-rose">Image Segmentation</span>
+              <span class="tag tag-rose">Pose Estimation</span>
+              <span class="tag tag-rose">Deep Learning</span>
+              <span class="tag tag-rose">Transfer Learning</span>
+              <span class="tag tag-rose">Real-Time Inference</span>
+              <span class="tag tag-rose">Anomaly Detection</span>
+              <span class="tag tag-rose">Embedding Techniques</span>
+              <span class="tag tag-rose">Custom Model Training</span>
+              <span class="tag tag-rose">Virtual Try-On</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group-label">Databases</div>
+            <div class="tags">
+              <span class="tag tag-emerald">MySQL</span>
+              <span class="tag tag-emerald">MS SQL</span>
+              <span class="tag tag-emerald">ClickHouse</span>
+              <span class="tag tag-emerald">SQLite</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group-label">Edge Computing</div>
+            <div class="tags">
+              <span class="tag tag-cyan">NVIDIA Jetson AGX</span>
+              <span class="tag tag-cyan">Jetson Nano</span>
+              <span class="tag tag-cyan">TensorRT</span>
+              <span class="tag tag-cyan">ONNX Deployment</span>
+              <span class="tag tag-cyan">Embedded Systems</span>
+              <span class="tag tag-cyan">Low-Power Optimization</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group-label">Tools & Technologies</div>
+            <div class="tags">
+              <span class="tag tag-amber">Git</span>
+              <span class="tag tag-amber">REST APIs</span>
+              <span class="tag tag-amber">Postman</span>
+              <span class="tag tag-amber">Arduino</span>
+              <span class="tag tag-amber">SFTP</span>
+              <span class="tag tag-amber">Multiprocessing</span>
+              <span class="tag tag-amber">Threading</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="col">
+        <!-- CONTACT -->
+        <div class="card reveal">
+          <div class="section-tag"><span class="tag-dot"></span> Contact</div>
+          <div class="contact-list">
+            <a href="mailto:syamprasadkalavoor@gmail.com" class="contact-row">
+              <div class="contact-icon">✉️</div>
+              <div>
+                <div class="contact-label">Email</div>
+                <div class="contact-value">syamprasadkalavoor@gmail.com</div>
+              </div>
+            </a>
+            <a href="tel:+919744454156" class="contact-row">
+              <div class="contact-icon">📱</div>
+              <div>
+                <div class="contact-label">Phone</div>
+                <div class="contact-value">+91 9744454156</div>
+              </div>
+            </a>
+            <div class="contact-row">
+              <div class="contact-icon">📍</div>
+              <div>
+                <div class="contact-label">Location</div>
+                <div class="contact-value">Thrissur, Kerala, India</div>
+              </div>
+            </div>
+            <a href="https://www.linkedin.com/in/syamprasadku" target="_blank" class="contact-row">
+              <div class="contact-icon">💼</div>
+              <div>
+                <div class="contact-label">LinkedIn</div>
+                <div class="contact-value">linkedin.com/in/syamprasadku</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- LANGUAGES -->
+        <div class="card reveal">
+          <div class="section-tag"><span class="tag-dot"></span> Languages</div>
+          <div class="chips">
+            <span class="chip">🇮🇳 Malayalam</span>
+            <span class="chip">🇬🇧 English</span>
+            <span class="chip">🇮🇳 Tamil</span>
+            <span class="chip">🇮🇳 Hindi</span>
+          </div>
+        </div>
+
+        <!-- EDUCATION -->
+        <div class="card reveal">
+          <div class="section-tag"><span class="tag-dot"></span> Education</div>
+          <div class="edu-item">
+            <div class="edu-degree">🎓 BCA — Bachelor of Computer Application</div>
+            <div class="edu-detail">2018 – 2021</div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-degree">📜 Python Django Full Stack Course</div>
+            <div class="edu-detail">2020</div>
+          </div>
+        </div>
+
+        <!-- CTA CARD -->
+        <div class="card cta-card reveal">
+          <div class="cta-title">Interested in working together?</div>
+          <div class="cta-desc">Let's discuss your next AI / ML project</div>
+          <a class="btn btn-glow" href="mailto:syamprasadkalavoor@gmail.com" style="width:100%;justify-content:center;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Send Email
+          </a>
+          <a class="btn btn-outline-accent" href="https://www.linkedin.com/in/syamprasadku" target="_blank" style="width:100%;justify-content:center;margin-top:8px;">
+            Connect on LinkedIn
+          </a>
+          <a class="btn" href="Syamprasad_cv.pdf" download style="width:100%;justify-content:center;margin-top:8px;">
+            ⬇ Download Full CV
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      © 2026 <span class="highlight">Syamprasad Kalavoor</span> · Crafted with Python, AI & passion
+    </footer>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SCRIPTS
+  ═══════════════════════════════════════════ -->
+  <script>
+    /* ── THEME TOGGLE ── */
+    const themeBtn = document.getElementById('toggleTheme');
+    let light = false;
+    themeBtn.onclick = () => {
+      light = !light;
+      document.body.classList.toggle('light', light);
+      themeBtn.textContent = light ? '🌙' : '☀️';
+    };
+
+    /* ── SCROLL REVEAL ── */
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    /* ── ORGANIC HERO IMAGE REVEAL ── */
+    const hero = document.querySelector('.hero');
+    const revealSvg = hero.querySelector('.hero-portrait-reveal');
+    const baseSvg = hero.querySelector('.hero-portrait-base');
+    const revealImage = revealSvg.querySelector('image');
+    const baseImage = baseSvg.querySelector('image');
+    const blobPath = document.getElementById('heroBlobPath');
+    const blobMask = document.getElementById('heroBlobMask');
+    const revealCursor = hero.querySelector('.hero-reveal-cursor');
+    const revealState = { x: 0, y: 0, targetX: 0, targetY: 0, active: false, phase: 0 };
+    let heroWidth = 1, heroHeight = 1, revealFrame = 0, previousFrame = 0;
+    const resizeHeroReveal = () => {
+      const bounds = hero.getBoundingClientRect();
+      heroWidth = Math.max(1, bounds.width);
+      heroHeight = Math.max(1, bounds.height);
+      revealSvg.setAttribute('viewBox', `0 0 ${heroWidth} ${heroHeight}`);
+      baseSvg.setAttribute('viewBox', `0 0 ${heroWidth} ${heroHeight}`);
+      revealImage.setAttribute('width', heroWidth);
+      revealImage.setAttribute('height', heroHeight);
+      baseImage.setAttribute('width', heroWidth);
+      baseImage.setAttribute('height', heroHeight);
+      blobMask.setAttribute('width', heroWidth);
+      blobMask.setAttribute('height', heroHeight);
+    };
+    resizeHeroReveal();
+    new ResizeObserver(resizeHeroReveal).observe(hero);
+
+    function placeHeroReveal(event) {
+      const bounds = hero.getBoundingClientRect();
+      revealState.targetX = Math.max(0, Math.min(heroWidth, event.clientX - bounds.left));
+      revealState.targetY = Math.max(0, Math.min(heroHeight, event.clientY - bounds.top));
+      if (!revealState.active) {
+        revealState.x = revealState.targetX;
+        revealState.y = revealState.targetY;
+      }
+      revealState.active = true;
+      hero.classList.add('is-revealing');
+      if (!revealFrame) revealFrame = requestAnimationFrame(animateHeroReveal);
+    }
+    function hideHeroReveal() {
+      revealState.active = false;
+      hero.classList.remove('is-revealing');
+      blobPath.setAttribute('d', '');
+      revealCursor.style.opacity = '0';
+    }
+    function animateHeroReveal(now) {
+      const dt = previousFrame ? Math.min(32, now - previousFrame) : 16;
+      previousFrame = now;
+      revealState.phase += dt * 0.001;
+      const ease = 1 - Math.pow(0.001, dt / 1000);
+      revealState.x += (revealState.targetX - revealState.x) * ease;
+      revealState.y += (revealState.targetY - revealState.y) * ease;
+      revealCursor.style.left = `${revealState.x}px`;
+      revealCursor.style.top = `${revealState.y}px`;
+      if (revealState.active) {
+        const t = revealState.phase;
+        const rx = Math.min(178, heroWidth * .32);
+        const ry = Math.min(178, heroHeight * .42);
+        const points = 24;
+        let d = '';
+        for (let i = 0; i < points; i++) {
+          const a = (i / points) * Math.PI * 2;
+          const wobble = 1 + .105 * Math.sin(a * 3 + t * 1.8) + .065 * Math.cos(a * 5 - t * 1.25) + .035 * Math.sin(a * 2 + t * 2.3);
+          const x = revealState.x + Math.cos(a) * rx * wobble;
+          const y = revealState.y + Math.sin(a) * ry * wobble;
+          d += `${i ? 'L' : 'M'}${x.toFixed(1)} ${y.toFixed(1)} `;
+        }
+        blobPath.setAttribute('d', `${d}Z`);
+      }
+      if (revealState.active) revealFrame = requestAnimationFrame(animateHeroReveal);
+      else { revealFrame = 0; previousFrame = 0; }
+    }
+    hero.addEventListener('pointerenter', placeHeroReveal);
+    hero.addEventListener('pointermove', placeHeroReveal);
+    hero.addEventListener('pointerleave', hideHeroReveal);
+    hero.addEventListener('pointercancel', hideHeroReveal);
+  </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+python-multipart
+numpy==1.23.5
+pillow
+opencv-python-headless
+tensorflow==2.12.0
+keras==2.12.0
+deepface==0.0.93
